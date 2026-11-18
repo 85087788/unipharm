@@ -1,0 +1,1302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unipharm | Dosage Forms &amp; Why Choose Us</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================
+   Unipharm – Dosage Forms showcase
+   Odoo: paste this <style> into Website → Customize → HTML/CSS Editor (SCSS),
+   and replace every image URL with the /web/image/... URL from the media library.
+   ========================================================== */
+body { margin: 0; }
+
+/* Shared solid background for both sections */
+:root { --uni-bg: #eef3fa; }
+
+.uni-dosage-showcase,
+.uni-dosage-showcase * { box-sizing: border-box; }
+
+/* SECTION */
+.uni-dosage-showcase {
+  --uni-blue: #1683ef;
+  --uni-blue-dark: #0f6fd1;
+  --uni-dark: #10233e;
+  --uni-muted: #5b6b82;
+  position: relative;
+  padding: clamp(48px, 7vw, 96px) clamp(16px, 4vw, 72px);
+  font-family: "Inter", Arial, sans-serif;
+  color: var(--uni-dark);
+  background: var(--uni-bg);
+}
+
+/* HEADING */
+.uni-dosage-heading {
+  max-width: 900px;
+  margin: 0 auto clamp(28px, 4vw, 48px);
+  text-align: center;
+}
+
+.uni-dosage-heading h2 {
+  margin: 0;
+  font-size: clamp(28px, 3.4vw, 46px);
+  line-height: 1.2;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+
+.uni-dosage-heading p {
+  margin: 14px auto 0;
+  max-width: 640px;
+  font-size: clamp(14px, 1.2vw, 16px);
+  line-height: 1.55;
+  font-weight: 500;
+  color: var(--uni-muted);
+  text-wrap: balance;
+}
+
+/* GRID */
+.uni-dosage-grid {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(14px, 1.6vw, 24px);
+}
+
+/* CARD (glass – now visible against the background) */
+.uni-dosage-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  height: clamp(280px, 30vw, 360px);
+  padding: 18px 20px 20px;
+  overflow: hidden;
+  border-radius: 22px;
+  text-decoration: none !important;
+  color: var(--uni-dark);
+  background: rgba(255, 255, 255, .55);
+  border: 1px solid rgba(255, 255, 255, .85);
+  box-shadow:
+    0 12px 32px rgba(36, 80, 130, .08),
+    inset 0 1px 0 rgba(255, 255, 255, .8);
+  backdrop-filter: blur(16px) saturate(140%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+  transition:
+    transform .4s cubic-bezier(.2, .8, .2, 1),
+    box-shadow .4s ease,
+    background .4s ease;
+}
+
+.uni-dosage-card:hover {
+  transform: translateY(-6px);
+  background: rgba(255, 255, 255, .75);
+  box-shadow:
+    0 22px 48px rgba(30, 105, 190, .16),
+    inset 0 1px 0 rgba(255, 255, 255, .9);
+}
+
+.uni-dosage-card:focus-visible {
+  outline: 3px solid var(--uni-blue);
+  outline-offset: 4px;
+}
+
+/* PRODUCT VISUAL */
+.uni-card-visual {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 0 12px;
+}
+
+.uni-card-visual img {
+  position: relative;
+  z-index: 2;
+  display: block;
+  width: 88%;
+  height: 100%;
+  max-height: 230px;
+  object-fit: contain;
+  filter: drop-shadow(0 16px 14px rgba(38, 72, 110, .14));
+  animation: uni-product-float 5s ease-in-out infinite;
+  transition: transform .45s ease;
+}
+
+.uni-dosage-card:nth-child(2n) .uni-card-visual img { animation-delay: -2.5s; }
+
+.uni-dosage-card:hover .uni-card-visual img {
+  transform: scale(1.06);
+  animation-play-state: paused;
+}
+
+/* GLOW */
+.uni-glow {
+  position: absolute;
+  width: 70%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(65, 166, 255, .24) 0%, rgba(65, 166, 255, 0) 70%);
+  opacity: .45;
+  transform: scale(.85);
+  transition: opacity .45s ease, transform .45s ease;
+}
+
+.uni-dosage-card:hover .uni-glow {
+  opacity: 1;
+  transform: scale(1.15);
+}
+
+/* TEXT + CTA */
+.uni-card-bottom {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.uni-card-bottom > div { min-width: 0; }
+
+.uni-card-bottom h3 {
+  margin: 0 0 4px;
+  font-size: clamp(17px, 1.4vw, 20px);
+  line-height: 1.25;
+  font-weight: 700;
+  color: var(--uni-dark);
+  overflow-wrap: anywhere;
+}
+
+.uni-card-bottom p {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--uni-muted);
+  overflow-wrap: anywhere;
+}
+
+.uni-card-cta {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 0;
+  min-height: 40px;
+  padding: 5px 16px;
+  border-radius: 999px;
+  background: var(--uni-blue);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1;
+  white-space: nowrap;
+  transition: background .3s ease, gap .3s ease, padding .3s ease;
+}
+
+.uni-card-arrow {
+  flex: 0 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 0;
+  height: 30px;
+  overflow: hidden;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, .14);
+  opacity: 0;
+  transform: scale(.4);
+  transition: flex-basis .3s ease, width .3s ease, opacity .2s ease, transform .3s ease;
+}
+
+.uni-card-arrow::after {
+  content: "";
+  width: 0;
+  height: 0;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-left: 7px solid #fff;
+  margin-left: 2px;
+}
+
+.uni-dosage-card:hover .uni-card-cta,
+.uni-dosage-card:focus-visible .uni-card-cta {
+  gap: 9px;
+  padding-right: 5px;
+  background: var(--uni-blue-dark);
+}
+
+.uni-dosage-card:hover .uni-card-arrow,
+.uni-dosage-card:focus-visible .uni-card-arrow {
+  flex-basis: 30px;
+  width: 30px;
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* FLOAT ANIMATION (subtle) */
+@keyframes uni-product-float {
+  0%, 100% { translate: 0 0; }
+  50%      { translate: 0 -7px; }
+}
+
+/* LANGUAGE
+   Odoo sets <html lang="zh_CN"> / "zh-CN"; both match ^="zh". */
+.uni-dosage-showcase .uni-zh { display: none; }
+html[lang^="zh"] .uni-dosage-showcase .uni-en { display: none; }
+html[lang^="zh"] .uni-dosage-showcase .uni-zh { display: block; }
+html[lang^="zh"] .uni-dosage-showcase .uni-card-cta-label.uni-zh { display: inline; }
+
+/* TABLET */
+@media (max-width: 1024px) {
+  .uni-dosage-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .uni-dosage-card { height: clamp(260px, 40vw, 340px); }
+}
+
+/* MOBILE */
+@media (max-width: 560px) {
+  .uni-dosage-grid { grid-template-columns: 1fr; gap: 16px; }
+  .uni-dosage-card { height: 300px; }
+  .uni-card-bottom h3 { font-size: 19px; }
+}
+
+/* DESKTOP: whole section fits one screen; the two card rows share the space below the heading */
+@media (min-width: 1025px) {
+  .uni-dosage-showcase {
+    height: 100vh;
+    height: 100svh;
+    min-height: 600px;
+    display: flex;
+    flex-direction: column;
+    padding-top: clamp(24px, 4vh, 56px);
+    padding-bottom: clamp(24px, 4vh, 56px);
+  }
+  .uni-dosage-heading {
+    flex: 0 0 auto;
+    width: 100%;
+    max-width: 1280px;
+    margin-bottom: clamp(18px, 3vh, 36px);
+  }
+  .uni-dosage-heading h2 { font-size: clamp(28px, 2.8vw, 42px); }
+  .uni-dosage-heading p { max-width: none; margin-top: 10px; }
+  .uni-dosage-grid {
+    flex: 1 1 0;
+    min-height: 0;
+    width: 100%;
+    grid-template-rows: repeat(2, minmax(0, 1fr));
+  }
+  .uni-dosage-card { height: auto; min-height: 0; }
+  .uni-card-visual img { max-height: none; }
+}
+
+/* Touch devices: no hover, so show the arrow permanently */
+@media (hover: none) {
+  .uni-card-cta { gap: 9px; padding-right: 5px; }
+  .uni-card-arrow { flex-basis: 30px; width: 30px; opacity: 1; transform: none; }
+}
+
+/* ACCESSIBILITY */
+@media (prefers-reduced-motion: reduce) {
+  .uni-card-visual img { animation: none; }
+  .uni-dosage-card,
+  .uni-card-visual img,
+  .uni-glow,
+  .uni-card-cta,
+  .uni-card-arrow { transition: none; }
+}
+
+/* ==========================================================
+   Why choose Unipharm
+   Same tokens, glass cards and solid background as the dosage section.
+   ========================================================== */
+#uni-why-choose,
+#uni-why-choose * { box-sizing: border-box; }
+
+#uni-why-choose {
+  --uni-blue: #1683ef;
+  --uni-blue-dark: #0f6fd1;
+  --uni-dark: #10233e;
+  --uni-muted: #5b6b82;
+  position: relative;
+  overflow: hidden;
+  overflow: clip; /* clip (not hidden) so position: sticky keeps working */
+  font-family: "Inter", Arial, sans-serif;
+  color: var(--uni-dark);
+  background: var(--uni-bg);
+}
+
+/* The stage that holds header, light and cards */
+#uni-why-choose .uni-why-sticky {
+  position: relative;
+  isolation: isolate;
+  padding: clamp(48px, 7vw, 96px) clamp(16px, 4vw, 72px);
+}
+
+/* PIN MODE (set by JS on screens where the stage fits):
+   the section gets extra height to scroll through while the stage stays put,
+   and the scroll distance drives the light growth. */
+#uni-why-choose.uni-pin { height: 320vh; }
+#uni-why-choose.uni-pin .uni-why-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Light canvas sits behind the glass cards, so rays glow through them */
+#uni-why-choose .uni-light-canvas {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* HEADER (matches the dosage heading) */
+#uni-why-choose .uni-why-header {
+  max-width: 900px;
+  margin: 0 auto clamp(28px, 4vw, 44px);
+  text-align: center;
+}
+
+#uni-why-choose .uni-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 12px;
+  color: var(--uni-blue);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+}
+
+#uni-why-choose .uni-kicker::before,
+#uni-why-choose .uni-kicker::after {
+  content: "";
+  width: 22px;
+  height: 1px;
+  background: currentColor;
+  opacity: .5;
+}
+
+#uni-why-choose .uni-why-header h2 {
+  margin: 0;
+  font-size: clamp(28px, 3.4vw, 46px);
+  line-height: 1.2;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+
+#uni-why-choose .uni-why-header h2 span { color: var(--uni-blue); }
+
+#uni-why-choose .uni-why-header p.uni-lead {
+  margin: 14px auto 0;
+  max-width: 640px;
+  font-size: clamp(14px, 1.2vw, 16px);
+  line-height: 1.55;
+  font-weight: 500;
+  color: var(--uni-muted);
+  text-wrap: balance;
+}
+
+/* LAYOUT: 3 cards | light core | 3 cards */
+#uni-why-choose .uni-why-layout {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, .9fr) minmax(0, 1fr);
+  gap: clamp(14px, 1.6vw, 24px);
+}
+
+#uni-why-choose .uni-stack {
+  display: grid;
+  grid-template-rows: repeat(3, minmax(0, 1fr));
+  gap: clamp(14px, 1.6vw, 24px);
+  min-width: 0;
+}
+
+/* CARD (same glass as the dosage cards) */
+#uni-why-choose .uni-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+  min-height: 0;
+  padding: 18px 20px;
+  overflow: hidden;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, .55);
+  border: 1px solid rgba(255, 255, 255, .85);
+  box-shadow:
+    0 12px 32px rgba(36, 80, 130, .08),
+    inset 0 1px 0 rgba(255, 255, 255, .8);
+  backdrop-filter: blur(16px) saturate(140%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+  transition:
+    transform .4s cubic-bezier(.2, .8, .2, 1),
+    box-shadow .6s ease,
+    border-color .6s ease,
+    background .4s ease;
+}
+
+/* Same hover as the dosage cards */
+#uni-why-choose .uni-card:hover {
+  transform: translateY(-6px);
+  background: rgba(255, 255, 255, .75);
+  box-shadow:
+    0 22px 48px rgba(30, 105, 190, .16),
+    inset 0 1px 0 rgba(255, 255, 255, .9);
+}
+
+#uni-why-choose .uni-card-mark {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  color: var(--uni-blue);
+  background: rgba(22, 131, 239, .08);
+  border: 1px solid rgba(22, 131, 239, .14);
+  transition: background .6s ease, color .6s ease, box-shadow .6s ease;
+}
+
+#uni-why-choose .uni-card-mark svg { width: 15px; height: 15px; }
+
+#uni-why-choose .uni-card.uni-lit .uni-card-mark {
+  color: #fff;
+  background: var(--uni-blue);
+  box-shadow: 0 0 0 5px rgba(22, 131, 239, .12);
+}
+
+#uni-why-choose .uni-stat {
+  margin: 0 44px 8px 0;
+  color: var(--uni-blue);
+  font-size: clamp(30px, 2.8vw, 42px);
+  font-weight: 700;
+  letter-spacing: -.03em;
+  line-height: 1;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+#uni-why-choose .uni-suffix { font-size: .7em; margin-left: 1px; }
+
+#uni-why-choose .uni-unit {
+  margin-left: 6px;
+  font-size: .42em;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+
+#uni-why-choose .uni-card h3 {
+  margin: 0;
+  font-size: clamp(16px, 1.35vw, 19px);
+  line-height: 1.3;
+  font-weight: 700;
+  color: var(--uni-dark);
+}
+
+#uni-why-choose .uni-card p {
+  margin: 6px 0 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--uni-muted);
+}
+
+/* CENTER: light core */
+#uni-why-choose .uni-why-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  text-align: center;
+}
+
+#uni-why-choose .uni-core-wrap {
+  position: relative; /* JS measures the capsule area from this box */
+  flex: 1 1 auto;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  min-height: 200px;
+}
+
+#uni-why-choose .uni-hint {
+  display: none;
+  margin: 18px 0 10px;
+  color: #6d8fb0;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  transition: opacity .6s ease;
+}
+
+#uni-why-choose.uni-pin .uni-hint { display: block; }
+#uni-why-choose.uni-complete .uni-hint { opacity: 0; }
+
+#uni-why-choose .uni-progress {
+  display: none;
+  width: 96px;
+  height: 2px;
+  margin-top: 14px;
+  border-radius: 2px;
+  overflow: hidden;
+  background: rgba(22, 131, 239, .14);
+}
+
+#uni-why-choose.uni-pin .uni-progress { display: block; margin-top: 0; }
+
+#uni-why-choose .uni-progress span {
+  display: block;
+  height: 100%;
+  background: var(--uni-blue);
+  transform-origin: left;
+  transform: scaleX(var(--uni-growth, 0));
+}
+
+/* HEADING REVEAL: kicker, title and subtitle rise in with the scroll (JS sets --uni-h per element) */
+#uni-why-choose.uni-js .uni-why-header > * {
+  opacity: var(--uni-h, 0);
+  transform: translateY(calc((1 - var(--uni-h, 0)) * 26px));
+  filter: blur(calc((1 - var(--uni-h, 0)) * 6px));
+  will-change: opacity, transform;
+}
+
+/* CARD REVEAL (only once JS is running; without JS cards are simply visible) */
+#uni-why-choose.uni-js .uni-card {
+  opacity: 0;
+  transform: translateX(var(--uni-from, 0)) scale(.92);
+  filter: blur(6px);
+  transition:
+    opacity .7s ease,
+    transform .8s cubic-bezier(.2, .8, .2, 1),
+    filter .7s ease,
+    box-shadow .6s ease,
+    border-color .6s ease,
+    background .4s ease;
+}
+#uni-why-choose.uni-js .uni-stack:first-child .uni-card { --uni-from: 28px;  transform-origin: right center; }
+#uni-why-choose.uni-js .uni-stack:last-child .uni-card  { --uni-from: -28px; transform-origin: left center; }
+#uni-why-choose.uni-js .uni-card.uni-in { opacity: 1; transform: none; filter: none; }
+#uni-why-choose.uni-js .uni-card.uni-in:hover { transform: translateY(-6px); }
+
+@media (max-width: 760px) {
+  #uni-why-choose.uni-js .uni-stack .uni-card { --uni-from: 0; transform: translateY(24px) scale(.96); transform-origin: center; }
+  #uni-why-choose.uni-js .uni-stack .uni-card.uni-in { transform: none; }
+}
+
+/* LANGUAGE */
+#uni-why-choose .uni-zh { display: none; }
+html[lang^="zh"] #uni-why-choose .uni-en { display: none; }
+html[lang^="zh"] #uni-why-choose .uni-zh { display: revert; }
+
+/* DESKTOP: one screen, same rhythm as the dosage section */
+@media (min-width: 1025px) {
+  #uni-why-choose .uni-why-sticky {
+    height: 100vh;
+    height: 100svh;
+    min-height: 680px;
+    display: flex;
+    flex-direction: column;
+    padding-top: clamp(24px, 4vh, 56px);
+    padding-bottom: clamp(24px, 4vh, 56px);
+  }
+  #uni-why-choose .uni-why-header {
+    flex: 0 0 auto;
+    width: 100%;
+    max-width: 1280px;
+    margin-bottom: clamp(18px, 3vh, 36px);
+  }
+  #uni-why-choose .uni-why-header h2 { font-size: clamp(28px, 2.8vw, 42px); }
+  #uni-why-choose .uni-why-header p.uni-lead { max-width: none; margin-top: 10px; }
+  #uni-why-choose .uni-why-layout {
+    flex: 1 1 0;
+    min-height: 0;
+    width: 100%;
+  }
+}
+
+@media (min-width: 1025px) and (max-height: 820px) {
+  #uni-why-choose .uni-card { padding: 14px 18px; }
+  #uni-why-choose .uni-stat { font-size: clamp(28px, 2.4vw, 36px); margin-bottom: 6px; }
+  #uni-why-choose .uni-card p { font-size: 12px; line-height: 1.45; }
+}
+
+@media (min-width: 1025px) and (max-height: 740px) {
+  #uni-why-choose .uni-why-header p.uni-lead { display: none; }
+  #uni-why-choose .uni-stat { font-size: 28px; }
+  #uni-why-choose .uni-card h3 { font-size: 14px; }
+  #uni-why-choose .uni-card p { font-size: 11.5px; }
+}
+
+/* TABLET */
+@media (max-width: 1024px) {
+  #uni-why-choose .uni-stack { grid-template-rows: none; }
+  #uni-why-choose .uni-card { padding: 18px; }
+  #uni-why-choose .uni-card-mark { width: 28px; height: 28px; top: 14px; right: 14px; }
+  #uni-why-choose .uni-stat { margin-right: 36px; font-size: clamp(26px, 3.4vw, 34px); }
+  #uni-why-choose .uni-card p { font-size: 12px; }
+}
+
+/* MOBILE: light core on top, cards in two columns */
+@media (max-width: 760px) {
+  #uni-why-choose .uni-why-layout { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  #uni-why-choose .uni-stack { gap: 12px; }
+  #uni-why-choose .uni-why-center { grid-column: 1 / -1; grid-row: 1; margin-bottom: 8px; }
+  #uni-why-choose .uni-core-wrap { min-height: 300px; }
+  #uni-why-choose .uni-card { justify-content: flex-start; padding: 16px 14px; }
+  #uni-why-choose .uni-card-mark { display: none; }
+  #uni-why-choose .uni-stat { margin-right: 0; font-size: 30px; }
+  #uni-why-choose .uni-card h3 { font-size: 14px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #uni-why-choose.uni-pin { height: auto; }
+  #uni-why-choose.uni-pin .uni-why-sticky { position: relative; }
+  #uni-why-choose.uni-js .uni-card,
+  #uni-why-choose.uni-js .uni-why-header > * { opacity: 1; transform: none; filter: none; }
+  #uni-why-choose .uni-card,
+  #uni-why-choose .uni-card-mark { transition: none; }
+}
+</style>
+</head>
+<body>
+<section class="uni-dosage-showcase">
+  <div class="uni-dosage-heading">
+    <h2 class="uni-en">Delivering Premium Health Products Worldwide</h2>
+    <h2 class="uni-zh" lang="zh">为全球提供优质健康产品</h2>
+    <p class="uni-en">We excel in patented processes and complex formula R&amp;D, offering full customization to meet your needs.</p>
+    <p class="uni-zh" lang="zh">我们专注于专利工艺与复杂配方研发，提供全面定制服务，满足您的需求。</p>
+  </div>
+
+  <div class="uni-dosage-grid">
+
+    <!-- 01 Soft Capsules -->
+    <a class="uni-dosage-card" href="/contactus">
+      <div class="uni-card-visual">
+        <div class="uni-glow"></div>
+        <!-- Images live in the images/ folder next to this file. On Odoo, replace each src with its /web/image/... URL. -->
+        <img src="images/Translucent-Golden-Soft-Gel-Capsule.png" alt="" width="500" height="500" loading="lazy" decoding="async">
+      </div>
+      <div class="uni-card-bottom">
+        <div>
+          <h3 class="uni-en">Soft Capsules</h3>
+          <h3 class="uni-zh" lang="zh">软胶囊</h3>
+          <p class="uni-en">Softgel Solutions</p>
+          <p class="uni-zh" lang="zh">软胶囊剂型解决方案</p>
+        </div>
+        <span class="uni-card-cta"><span class="uni-card-cta-label uni-en">Discover</span><span class="uni-card-cta-label uni-zh" lang="zh">了解更多</span><span class="uni-card-arrow" aria-hidden="true"></span></span>
+      </div>
+    </a>
+
+    <!-- 02 Hard Capsules -->
+    <a class="uni-dosage-card" href="/contactus">
+      <div class="uni-card-visual">
+        <div class="uni-glow"></div>
+        <img src="images/unipharm_hard_capsules.png" alt="" width="500" height="500" loading="lazy" decoding="async">
+      </div>
+      <div class="uni-card-bottom">
+        <div>
+          <h3 class="uni-en">Hard Capsules</h3>
+          <h3 class="uni-zh" lang="zh">硬胶囊</h3>
+          <p class="uni-en">Capsule Solutions</p>
+          <p class="uni-zh" lang="zh">硬胶囊剂型解决方案</p>
+        </div>
+        <span class="uni-card-cta"><span class="uni-card-cta-label uni-en">Discover</span><span class="uni-card-cta-label uni-zh" lang="zh">了解更多</span><span class="uni-card-arrow" aria-hidden="true"></span></span>
+      </div>
+    </a>
+
+    <!-- 03 Liquid -->
+    <a class="uni-dosage-card" href="/contactus">
+      <div class="uni-card-visual">
+        <div class="uni-glow"></div>
+        <img src="images/unipharm_liquid.png" alt="" width="500" height="500" loading="lazy" decoding="async">
+      </div>
+      <div class="uni-card-bottom">
+        <div>
+          <h3 class="uni-en">Liquid</h3>
+          <h3 class="uni-zh" lang="zh">液体制剂</h3>
+          <p class="uni-en">Liquid Formulations</p>
+          <p class="uni-zh" lang="zh">液体剂型解决方案</p>
+        </div>
+        <span class="uni-card-cta"><span class="uni-card-cta-label uni-en">Discover</span><span class="uni-card-cta-label uni-zh" lang="zh">了解更多</span><span class="uni-card-arrow" aria-hidden="true"></span></span>
+      </div>
+    </a>
+
+    <!-- 04 Tablets -->
+    <a class="uni-dosage-card" href="/contactus">
+      <div class="uni-card-visual">
+        <div class="uni-glow"></div>
+        <img src="images/unipharm_tablets.png" alt="" width="500" height="500" loading="lazy" decoding="async">
+      </div>
+      <div class="uni-card-bottom">
+        <div>
+          <h3 class="uni-en">Tablets</h3>
+          <h3 class="uni-zh" lang="zh">片剂</h3>
+          <p class="uni-en">Tablet Solutions</p>
+          <p class="uni-zh" lang="zh">片剂解决方案</p>
+        </div>
+        <span class="uni-card-cta"><span class="uni-card-cta-label uni-en">Discover</span><span class="uni-card-cta-label uni-zh" lang="zh">了解更多</span><span class="uni-card-arrow" aria-hidden="true"></span></span>
+      </div>
+    </a>
+
+    <!-- 05 Powder -->
+    <a class="uni-dosage-card" href="/contactus">
+      <div class="uni-card-visual">
+        <div class="uni-glow"></div>
+        <img src="images/unipharm_powder.png" alt="" width="500" height="500" loading="lazy" decoding="async">
+      </div>
+      <div class="uni-card-bottom">
+        <div>
+          <h3 class="uni-en">Powder</h3>
+          <h3 class="uni-zh" lang="zh">粉剂</h3>
+          <p class="uni-en">Powder Solutions</p>
+          <p class="uni-zh" lang="zh">粉剂解决方案</p>
+        </div>
+        <span class="uni-card-cta"><span class="uni-card-cta-label uni-en">Discover</span><span class="uni-card-cta-label uni-zh" lang="zh">了解更多</span><span class="uni-card-arrow" aria-hidden="true"></span></span>
+      </div>
+    </a>
+
+    <!-- 06 Drops & Spray -->
+    <a class="uni-dosage-card" href="/contactus">
+      <div class="uni-card-visual">
+        <div class="uni-glow"></div>
+        <img src="images/unipharm_drops_spray.png" alt="" width="500" height="500" loading="lazy" decoding="async">
+      </div>
+      <div class="uni-card-bottom">
+        <div>
+          <h3 class="uni-en">Drops &amp; Spray</h3>
+          <h3 class="uni-zh" lang="zh">滴剂与喷雾</h3>
+          <p class="uni-en">Drops &amp; Spray Solutions</p>
+          <p class="uni-zh" lang="zh">滴剂与喷雾解决方案</p>
+        </div>
+        <span class="uni-card-cta"><span class="uni-card-cta-label uni-en">Discover</span><span class="uni-card-cta-label uni-zh" lang="zh">了解更多</span><span class="uni-card-arrow" aria-hidden="true"></span></span>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<section id="uni-why-choose" aria-labelledby="uni-why-title">
+ <div class="uni-why-sticky">
+  <canvas class="uni-light-canvas" aria-hidden="true"></canvas>
+
+  <header class="uni-why-header">
+    <p class="uni-kicker"><span class="uni-en">Why choose Unipharm</span><span class="uni-zh" lang="zh">为什么选择 Unipharm</span></p>
+    <h2 id="uni-why-title" class="uni-en">A healthier future, <span>built on trust.</span></h2>
+    <h2 class="uni-zh" lang="zh">共建健康未来，<span>以信任为本。</span></h2>
+    <p class="uni-lead uni-en">Connect the healthy era. Grow with a partner you can trust.</p>
+    <p class="uni-lead uni-zh" lang="zh">连接健康新时代，与值得信赖的伙伴共同成长。</p>
+  </header>
+
+  <div class="uni-why-layout">
+
+    <div class="uni-stack">
+      <article class="uni-card">
+        <span class="uni-card-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3v3m0 12v3M3 12h3m12 0h3M5.64 5.64l2.12 2.12m8.48 8.48 2.12 2.12m0-12.72-2.12 2.12m-8.48 8.48-2.12 2.12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.6"/></svg></span>
+        <div class="uni-stat"><span class="uni-num" data-count="50">50</span><span class="uni-unit uni-en">Years</span><span class="uni-unit uni-zh" lang="zh">年</span></div>
+        <h3 class="uni-en">In the health industry</h3>
+        <h3 class="uni-zh" lang="zh">深耕健康行业</h3>
+        <p class="uni-en">Nearly five decades of health product development, supporting better wellbeing and a healthier community.</p>
+        <p class="uni-zh" lang="zh">近五十年健康产品研发经验，守护大众健康与美好生活。</p>
+      </article>
+
+      <article class="uni-card">
+        <span class="uni-card-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3 19 6v5c0 4.4-2.8 8-7 10-4.2-2-7-5.6-7-10V6l7-3Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="m8.5 12 2.2 2.2 4.8-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <div class="uni-stat"><span class="uni-num" data-count="28">28</span><span class="uni-suffix">+</span></div>
+        <h3 class="uni-en">Quality certifications</h3>
+        <h3 class="uni-zh" lang="zh">质量认证</h3>
+        <p class="uni-en">Robust quality systems shaped by New Zealand and international regulatory standards.</p>
+        <p class="uni-zh" lang="zh">依据新西兰及国际法规标准建立的完善质量体系。</p>
+      </article>
+
+      <article class="uni-card">
+        <span class="uni-card-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M9 3h6m-5 0v6.4L5.8 17a2.7 2.7 0 0 0 2.4 4h7.6a2.7 2.7 0 0 0 2.4-4L14 9.4V3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 15h8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
+        <div class="uni-stat"><span class="uni-num" data-count="120">120</span><span class="uni-suffix">+</span></div>
+        <h3 class="uni-en">Invention patents globally</h3>
+        <h3 class="uni-zh" lang="zh">全球发明专利</h3>
+        <p class="uni-en">Ideas in technology, formula creation and product development, protected and advanced by our experienced team.</p>
+        <p class="uni-zh" lang="zh">在技术、配方与产品开发领域持续创新，由经验丰富的团队推动。</p>
+      </article>
+    </div>
+
+    <div class="uni-why-center">
+      <div class="uni-core-wrap" aria-hidden="true"></div>
+      <p class="uni-hint" aria-hidden="true"><span class="uni-en">Scroll to illuminate ↓</span><span class="uni-zh" lang="zh">向下滑动 · 点亮光线 ↓</span></p>
+      <div class="uni-progress" aria-hidden="true"><span></span></div>
+    </div>
+
+    <div class="uni-stack">
+      <article class="uni-card">
+        <span class="uni-card-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M16 20v-1.7a3.3 3.3 0 0 0-3.3-3.3H6.3A3.3 3.3 0 0 0 3 18.3V20m6.5-9a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm7-6.6a3.5 3.5 0 0 1 0 6.8m1.2 3.5h.5a3.3 3.3 0 0 1 3.3 3.3V20" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <div class="uni-stat"><span class="uni-num" data-count="200">200</span><span class="uni-suffix">+</span></div>
+        <h3 class="uni-en">Brand customers</h3>
+        <h3 class="uni-zh" lang="zh">品牌客户</h3>
+        <p class="uni-en">Trusted by health brands across markets including Japan, Australia, China, South Korea and Singapore.</p>
+        <p class="uni-zh" lang="zh">深受日本、澳大利亚、中国、韩国、新加坡等市场健康品牌的信赖。</p>
+      </article>
+
+      <article class="uni-card">
+        <span class="uni-card-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M7 4h10M9 4v5l-4.5 8.1A2 2 0 0 0 6.2 20h11.6a2 2 0 0 0 1.7-2.9L15 9V4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M7.5 15h9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
+        <div class="uni-stat"><span class="uni-num" data-count="5000">5,000</span><span class="uni-suffix">+</span></div>
+        <h3 class="uni-en">Mature formulations</h3>
+        <h3 class="uni-zh" lang="zh">成熟配方</h3>
+        <p class="uni-en">Build on a library of proven formulas, with custom R&amp;D tailored to each brand partner's needs.</p>
+        <p class="uni-zh" lang="zh">依托成熟配方库，并为每位品牌伙伴提供定制化研发。</p>
+      </article>
+
+      <article class="uni-card">
+        <span class="uni-card-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M4 20V9l5 3V8l5 4V5h6v15H4Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 16h2m3 0h2m3 0h1M16 8h1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
+        <div class="uni-stat"><span class="uni-num" data-count="6">6</span></div>
+        <h3 class="uni-en">World-class production lines</h3>
+        <h3 class="uni-zh" lang="zh">世界级生产线</h3>
+        <p class="uni-en">Efficient, modern manufacturing for capsules, liquids, tablets and powders at dependable scale.</p>
+        <p class="uni-zh" lang="zh">高效现代化生产软胶囊、液体、片剂与粉剂，规模稳定可靠。</p>
+      </article>
+    </div>
+
+  </div>
+ </div>
+</section>
+
+
+<script>
+/* Why choose Unipharm – scroll-driven frosted-glass New Zealand.
+   Timeline (0 → 1, driven by scrolling):
+     0.00–0.28  fine particles drift in and gather into the shape of New Zealand
+     0.15–0.40  the deep-blue glass map forms around them (outline draws, frost fades in)
+     0.36–0.93  six faint blue lines leave the coast one by one; each card appears when its line arrives
+   Desktop/tablet (when the stage fits the screen): the section pins while you scroll.
+   Phones / short screens: the map forms as it scrolls into view, cards fade in as they arrive.
+   With reduced motion the final state is shown. */
+(function () {
+  var section = document.getElementById('uni-why-choose');
+  if (!section || section.dataset.uniInit) return;
+  section.dataset.uniInit = '1';
+
+  var stage = section.querySelector('.uni-why-sticky');
+  var canvas = section.querySelector('.uni-light-canvas');
+  var ctx = canvas && canvas.getContext && canvas.getContext('2d');
+  var area = section.querySelector('.uni-core-wrap');
+  if (!stage || !ctx || !area) return;
+
+  var cards = [].slice.call(section.querySelectorAll('.uni-card'));
+  var header = section.querySelector('.uni-why-header');
+  var headParts = header ? [].slice.call(header.children) : [];
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  section.classList.add('uni-js');
+
+  /* Simplified coastline, [longitude, latitude] */
+  var NORTH = [[172.68,-34.43],[173.0,-34.4],[173.5,-34.95],[174.1,-35.2],[174.55,-35.85],[174.5,-36.1],[174.8,-36.3],
+    [174.9,-36.85],[175.4,-37.15],[175.55,-36.5],[175.9,-36.8],[175.95,-37.4],[176.2,-37.65],[177.0,-37.95],[177.3,-38.0],
+    [177.98,-37.53],[178.55,-37.69],[178.3,-38.37],[178.0,-38.7],[177.9,-39.15],[176.9,-39.5],[177.1,-39.65],[176.6,-40.3],
+    [176.25,-40.9],[175.25,-41.6],[174.8,-41.35],[175.0,-40.95],[175.2,-40.45],[175.0,-39.95],[174.5,-39.75],[173.75,-39.28],
+    [174.1,-39.05],[174.6,-38.7],[174.8,-38.07],[174.85,-37.8],[174.7,-37.4],[174.55,-37.05],[174.2,-36.4],[173.8,-35.95],
+    [173.35,-35.5],[172.9,-34.9]];
+  var SOUTH = [[172.7,-40.5],[172.7,-40.7],[173.0,-40.78],[173.28,-41.27],[173.8,-40.85],[174.3,-41.0],[174.27,-41.73],
+    [173.7,-42.42],[172.9,-43.1],[172.75,-43.55],[173.1,-43.8],[172.4,-43.85],[171.25,-44.4],[171.0,-45.1],[170.7,-45.88],
+    [169.8,-46.45],[168.95,-46.65],[168.35,-46.6],[168.0,-46.35],[166.6,-46.15],[166.7,-45.6],[167.9,-44.6],[168.6,-43.97],
+    [169.0,-43.85],[170.95,-42.7],[171.2,-42.45],[171.45,-41.75],[172.1,-41.25],[172.2,-40.78]];
+  var STEWART = [[167.55,-46.95],[167.9,-46.72],[168.2,-46.85],[168.15,-47.1],[167.8,-47.25],[167.5,-47.15]];
+  // where each card's line leaves the coast (card order: left 1-3, right 1-3)
+  var ANCHORS = [[173.55,-35.6],[173.85,-39.25],[170.7,-42.95],[178.35,-37.8],[176.4,-40.6],[173.1,-43.75]];
+
+  var ORDER = [0, 3, 1, 4, 2, 5];           // left / right alternating
+  var LINE_START = 0.36, LINE_GAP = 0.09, LINE_LEN = 0.12;
+  var SCROLL_DONE = 0.85;                    // share of the pinned scroll used by the timeline
+  var LAT0 = Math.cos(41 * Math.PI / 180);
+
+  var W = 0, H = 0, wide = true;
+  var map = { cx: 0, cy: 0, w: 0, h: 0, paths: [], perimeter: 0, anchors: [] };
+  var lines = [], dots = [], grain = null;
+  var pin = false, growth = reduced ? 1 : 0, shown = growth;
+  var mouse = { x: 0, inside: false }, tiltNow = 0;
+  var visible = false, raf = null, lastT = 0, time = 0, cardObserver = null;
+
+  var seed = 11;
+  function rand() { seed = seed * 16807 % 2147483647; return (seed - 1) / 2147483646; }
+  function clamp(v) { return v < 0 ? 0 : v > 1 ? 1 : v; }
+  function ease(t) { return 1 - Math.pow(1 - t, 3); }
+  function bez(a, b, c, d, t) { var u = 1 - t; return u * u * u * a + 3 * u * u * t * b + 3 * u * t * t * c + t * t * t * d; }
+
+  cards.forEach(function (card) {
+    var n = card.querySelector('.uni-num');
+    card._num = n;
+    card._target = n ? Number(n.getAttribute('data-count')) : 0;
+    card._in = false; card._lit = false; card._run = 0;
+    if (n && !reduced) n.textContent = '0';
+  });
+
+  /* ---------- card states ---------- */
+  function countUp(card) {
+    if (reduced || !card._num) return;
+    var run = ++card._run, t0 = performance.now(), target = card._target;
+    (function step(now) {
+      if (run !== card._run) return;
+      var k = Math.min(1, (now - t0) / 1100);
+      card._num.textContent = Math.round(target * ease(k)).toLocaleString('en-US');
+      if (k < 1) requestAnimationFrame(step);
+    })(t0);
+  }
+  function setIn(card, on) {
+    if (card._in === on) return;
+    card._in = on;
+    card.classList.toggle('uni-in', on);
+    if (on) countUp(card);
+    else if (card._num) { card._run++; card._num.textContent = '0'; }
+  }
+  function setLit(card, on) {
+    if (card._lit === on) return;
+    card._lit = on;
+    card.classList.toggle('uni-lit', on);
+  }
+
+  /* ---------- geometry ---------- */
+  function offsetIn(el) { // position relative to the stage, ignoring transforms
+    var x = 0, y = 0;
+    while (el && el !== stage) { x += el.offsetLeft; y += el.offsetTop; el = el.offsetParent; }
+    return { x: x, y: y };
+  }
+
+  // map-local coordinates run from (0,0) to (map.w, map.h)
+  var LON_MIN = 166.45, LON_MAX = 178.65, LAT_MAX = -34.35, LAT_MIN = -47.3;
+  var ASPECT = ((LON_MAX - LON_MIN) * LAT0) / (LAT_MAX - LAT_MIN);
+  function project(p) {
+    return [(p[0] - LON_MIN) * LAT0 / ((LON_MAX - LON_MIN) * LAT0) * map.w,
+            (LAT_MAX - p[1]) / (LAT_MAX - LAT_MIN) * map.h];
+  }
+
+  function smoothPath(pts) { // closed Catmull-Rom → Bézier for a soft coastline
+    var p = new Path2D(), n = pts.length, len = 0;
+    p.moveTo(pts[0][0], pts[0][1]);
+    for (var i = 0; i < n; i++) {
+      var p0 = pts[(i - 1 + n) % n], p1 = pts[i], p2 = pts[(i + 1) % n], p3 = pts[(i + 2) % n];
+      p.bezierCurveTo(p1[0] + (p2[0] - p0[0]) / 6, p1[1] + (p2[1] - p0[1]) / 6,
+                      p2[0] - (p3[0] - p1[0]) / 6, p2[1] - (p3[1] - p1[1]) / 6, p2[0], p2[1]);
+      len += Math.sqrt(Math.pow(p2[0] - p1[0], 2) + Math.pow(p2[1] - p1[1], 2));
+    }
+    return { path: p, len: len * 1.04 };
+  }
+
+  function toWorld(x, y, bob, tilt) { // map-local → stage
+    var dx = x - map.w / 2, dy = y - map.h / 2, c = Math.cos(tilt), s = Math.sin(tilt);
+    return [map.cx + dx * c - dy * s, map.cy + bob + dx * s + dy * c];
+  }
+
+  function makeGrain() { // fine frost texture
+    var g = document.createElement('canvas'); g.width = g.height = 96;
+    var gx = g.getContext('2d');
+    for (var i = 0; i < 1500; i++) {
+      gx.fillStyle = rand() < 0.75 ? 'rgba(255,255,255,' + (0.15 + rand() * 0.45) + ')' : 'rgba(120,150,190,' + (0.06 + rand() * 0.1) + ')';
+      gx.fillRect(rand() * 96, rand() * 96, 1, 1);
+    }
+    return ctx.createPattern(g, 'repeat');
+  }
+
+  function decideMode() {
+    section.classList.remove('uni-pin');
+    var fits = window.innerWidth > 760 &&
+      stage.offsetHeight <= window.innerHeight + 2 &&
+      stage.scrollHeight <= window.innerHeight + 2;
+    pin = !reduced && fits;
+    section.classList.toggle('uni-pin', pin);
+
+    if (cardObserver) { cardObserver.disconnect(); cardObserver = null; }
+    if (reduced) { cards.forEach(function (c) { setIn(c, true); setLit(c, true); }); return; }
+    if (!pin) {
+      if ('IntersectionObserver' in window) {
+        cardObserver = new IntersectionObserver(function (entries) {
+          entries.forEach(function (en) { if (en.isIntersecting) setIn(en.target, true); });
+        }, { rootMargin: '0px 0px -12% 0px', threshold: 0.15 });
+        cards.forEach(function (c) { cardObserver.observe(c); });
+      } else {
+        cards.forEach(function (c) { setIn(c, true); });
+      }
+    }
+  }
+
+  function layout() {
+    decideMode();
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    W = stage.offsetWidth; H = stage.offsetHeight;
+    canvas.width = Math.round(W * dpr);
+    canvas.height = Math.round(H * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    wide = window.innerWidth > 760;
+
+    // fit the map into the centre area
+    var o = offsetIn(area), aw = area.offsetWidth, ah = area.offsetHeight;
+    map.h = Math.min(ah * 0.92, (aw * 0.95) / ASPECT, 560);
+    map.w = map.h * ASPECT;
+    map.cx = o.x + aw / 2;
+    map.cy = o.y + ah / 2;
+
+    var islands = [NORTH, SOUTH, STEWART].map(function (poly) { return smoothPath(poly.map(project)); });
+    map.paths = islands.map(function (i) { return i.path; });
+    map.perimeter = islands.map(function (i) { return i.len; });
+    map.anchors = ANCHORS.map(project);
+    seed = 11;
+    grain = makeGrain();
+
+    // particles: scattered start → resting place inside the islands
+    var hit = document.createElement('canvas').getContext('2d');
+    function inside(x, y) {
+      for (var i = 0; i < map.paths.length; i++) if (hit.isPointInPath(map.paths[i], x, y)) return true;
+      return false;
+    }
+    dots = [];
+    var m = 5, tries = 0;
+    while (dots.length < 260 && tries < 30000) {
+      tries++;
+      var x = rand() * map.w, y = rand() * map.h;
+      if (!(inside(x, y) && inside(x + m, y) && inside(x - m, y) && inside(x, y + m) && inside(x, y - m))) continue;
+      var ang = rand() * Math.PI * 2, dist = map.h * (0.35 + rand() * 0.45), kind = rand();
+      dots.push({
+        x: x, y: y,
+        sx: map.cx + Math.cos(ang) * dist, sy: map.cy + Math.sin(ang) * dist * 0.85,
+        delay: rand() * 0.12, r: 0.6 + rand() * 1.5,
+        color: kind < 0.6 ? '22,131,239' : kind < 0.85 ? '90,165,240' : '12,80,170',
+        light: kind < 0.7 ? '255,255,255' : '180,222,255',
+        f1: 0.2 + rand() * 0.3, f2: 0.15 + rand() * 0.25, p1: rand() * 6.28, p2: rand() * 6.28
+      });
+    }
+
+    // faint blue lines from the coast to each card
+    lines = ORDER.map(function (ci, k) {
+      var card = cards[ci], co = offsetIn(card), left = ci < 3;
+      return {
+        card: card, left: left, anchor: map.anchors[ci], start: LINE_START + k * LINE_GAP, seed: rand(),
+        ex: left ? co.x + card.offsetWidth - 2 : co.x + 2,
+        ey: co.y + card.offsetHeight / 2
+      };
+    });
+
+    updateTarget();
+    if (!raf) { shown = growth; draw(); }
+  }
+
+  /* ---------- scroll → heading ---------- */
+  // kicker, title and subtitle each rise in as the heading scrolls up the screen
+  function updateHeader() {
+    if (!header || reduced) return;
+    var vh = window.innerHeight, top = header.getBoundingClientRect().top;
+    var hp = clamp((vh * 0.9 - top) / (vh * 0.55));
+    var visibleParts = headParts.filter(function (el) { return el.offsetParent !== null; });
+    visibleParts.forEach(function (el, i) {
+      var e = ease(clamp((hp - i * 0.16) / 0.5));
+      el.style.setProperty('--uni-h', e.toFixed(3));
+    });
+  }
+
+  /* ---------- scroll → growth ---------- */
+  function updateTarget() {
+    updateHeader();
+    if (reduced) { growth = 1; return; }
+    var vh = window.innerHeight;
+    if (pin) {
+      var r = section.getBoundingClientRect();
+      growth = clamp(clamp(-r.top / Math.max(1, section.offsetHeight - vh)) / SCROLL_DONE);
+    } else {
+      var a = area.getBoundingClientRect();
+      growth = clamp((vh * 0.9 - a.top) / (vh * 0.6));
+    }
+  }
+
+  /* ---------- drawing helpers ---------- */
+  function pt(P, t) { return [bez(P[0], P[2], P[4], P[6], t), bez(P[1], P[3], P[5], P[7], t)]; }
+  function strokePart(P, to, width, alpha, blur) {
+    var n = Math.max(2, Math.ceil(60 * to));
+    ctx.beginPath();
+    for (var i = 0; i <= n; i++) {
+      var q = pt(P, to * i / n);
+      if (i) ctx.lineTo(q[0], q[1]); else ctx.moveTo(q[0], q[1]);
+    }
+    ctx.lineWidth = width; ctx.strokeStyle = '#1683ef'; ctx.globalAlpha = alpha;
+    ctx.shadowBlur = blur || 0; ctx.shadowColor = 'rgba(65,166,255,.6)';
+    ctx.stroke();
+    ctx.shadowBlur = 0;
+  }
+  function dot(x, y, r, fill, alpha) {
+    ctx.globalAlpha = alpha; ctx.fillStyle = fill;
+    ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.fill();
+  }
+  function eachIsland(fn) { map.paths.forEach(fn); }
+
+  /* ---------- main draw ---------- */
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    var g = shown;
+    var shellP = clamp((g - 0.15) / 0.25);
+    var bob = reduced ? 0 : Math.sin(time * 0.8) * 4 * shellP;
+    var targetTilt = mouse.inside && !reduced ? (mouse.x - map.cx) / Math.max(W, 1) * 0.06 : 0;
+    tiltNow += (targetTilt - tiltNow) * 0.06;
+    var tilt = reduced ? 0 : tiltNow;
+
+    /* 1. connection lines (behind the map) */
+    lines.forEach(function (l, k) {
+      var p = clamp((g - l.start) / LINE_LEN), done = p >= 1;
+      if (!reduced) { setLit(l.card, done); if (pin) setIn(l.card, done); }
+      if (!wide) return;
+      var s = toWorld(l.anchor[0], l.anchor[1], bob, tilt), dx = l.ex - s[0];
+      var P = [s[0], s[1], s[0] + dx * 0.45, s[1], l.ex - dx * 0.35, l.ey, l.ex, l.ey];
+      if (shellP > 0) strokePart(P, 1, 1, 0.08 * shellP);                 // faint guide
+      if (p <= 0) return;
+      var e = ease(p);
+      strokePart(P, e, done ? 1.3 : 1, done ? 0.5 : 0.35, done ? 6 : 0);
+      if (!done) {
+        var tip = pt(P, e);
+        dot(tip[0], tip[1], 7, '#8cc8ff', 0.35);
+        dot(tip[0], tip[1], 2.4, '#1683ef', 0.9);
+      } else {
+        var pulse = reduced ? 0 : Math.sin(time * 2.2 + k) * 0.5 + 0.5;
+        dot(l.ex, l.ey, 7 + pulse * 3, '#8cc8ff', 0.25);
+        dot(l.ex, l.ey, 3, '#1683ef', 0.9);
+        if (!reduced) {
+          var t = (time * 0.22 + l.seed) % 1, q = pt(P, t);
+          dot(q[0], q[1], 2, '#1683ef', 0.55 * Math.sin(Math.PI * t));
+        }
+      }
+    });
+
+    /* 2. deep-blue glass map (lit like the capsule: denser edges, clear middle, highlights; no shadow) */
+    ctx.save();
+    ctx.translate(map.cx, map.cy + bob);
+    ctx.rotate(tilt);
+    ctx.translate(-map.w / 2, -map.h / 2);
+
+    if (shellP > 0) {
+      var a = Math.pow(shellP, 1.3);
+      var clip = new Path2D();
+      eachIsland(function (p) { clip.addPath(p); });
+
+      // body: deep blue, darker toward the edges, clearer through the middle
+      var body = ctx.createLinearGradient(0, 0, map.w, map.h * 0.35);
+      body.addColorStop(0, 'rgba(8,62,140,.92)');
+      body.addColorStop(0.3, 'rgba(18,108,214,.80)');
+      body.addColorStop(0.55, 'rgba(38,140,236,.70)');
+      body.addColorStop(0.8, 'rgba(14,92,190,.84)');
+      body.addColorStop(1, 'rgba(6,52,122,.94)');
+      ctx.globalAlpha = a; ctx.fillStyle = body;
+      ctx.fill(clip);
+
+      ctx.save();
+      ctx.clip(clip);
+
+      // inner glow through the middle of the glass
+      var inner = ctx.createRadialGradient(map.w * 0.55, map.h * 0.45, 0, map.w * 0.55, map.h * 0.45, map.h * 0.55);
+      inner.addColorStop(0, 'rgba(120,195,255,.38)');
+      inner.addColorStop(1, 'rgba(120,195,255,0)');
+      ctx.globalAlpha = a; ctx.fillStyle = inner; ctx.fillRect(0, 0, map.w, map.h);
+
+      // fine frost
+      ctx.globalAlpha = 0.18 * a; ctx.fillStyle = grain;
+      ctx.fillRect(0, 0, map.w, map.h);
+
+      var gl = clamp((shellP - 0.5) / 0.5);
+      if (gl > 0) {
+        // long specular streak along the length of the islands (like the capsule's strip)
+        var sheen = ctx.createLinearGradient(map.w * 0.2, 0, map.w * 0.62, map.h * 0.34);
+        sheen.addColorStop(0.40, 'rgba(255,255,255,0)');
+        sheen.addColorStop(0.47, 'rgba(255,255,255,.55)');
+        sheen.addColorStop(0.53, 'rgba(255,255,255,0)');
+        ctx.globalAlpha = gl; ctx.fillStyle = sheen; ctx.fillRect(0, 0, map.w, map.h);
+
+        // soft highlight on the upper north
+        var top = ctx.createRadialGradient(map.w * 0.68, map.h * 0.3, 0, map.w * 0.68, map.h * 0.3, map.h * 0.14);
+        top.addColorStop(0, 'rgba(255,255,255,.28)');
+        top.addColorStop(1, 'rgba(255,255,255,0)');
+        ctx.globalAlpha = gl; ctx.fillStyle = top; ctx.fillRect(0, 0, map.w, map.h);
+      }
+      ctx.restore();
+    }
+
+    /* 3. particles: gather, then drift gently inside the glass */
+    ctx.restore();
+    dots.forEach(function (d) {
+      var cp = ease(clamp((g - d.delay) / 0.16));
+      var lx = d.x + (reduced ? 0 : Math.sin(time * d.f1 + d.p1) * 4);
+      var ly = d.y + (reduced ? 0 : Math.sin(time * d.f2 + d.p2) * 4);
+      var w = toWorld(lx, ly, bob, tilt);
+      var x = d.sx + (w[0] - d.sx) * cp, y = d.sy + (w[1] - d.sy) * cp;
+      var alpha = 0.25 + 0.6 * cp;
+      // blue while gathering on the pale page, white once inside the deep-blue glass
+      if (shellP < 1) dot(x, y, d.r, 'rgb(' + d.color + ')', alpha * (1 - shellP));
+      if (shellP > 0) dot(x, y, d.r, 'rgb(' + d.light + ')', alpha * 0.85 * shellP);
+    });
+
+    /* 4. anchor points where the lines leave the coast */
+    if (wide) {
+      lines.forEach(function (l) {
+        var p = clamp((g - l.start) / LINE_LEN);
+        if (p <= 0) return;
+        var s = toWorld(l.anchor[0], l.anchor[1], bob, tilt);
+        dot(s[0], s[1], 5, '#ffffff', 0.9);
+        dot(s[0], s[1], 2.6, '#1683ef', 0.85);
+      });
+    }
+
+    ctx.globalAlpha = 1;
+    section.style.setProperty('--uni-growth', shown.toFixed(4));
+    section.classList.toggle('uni-complete', shown > 0.995);
+  }
+
+  function frame(now) {
+    var dt = lastT ? Math.min(0.05, (now - lastT) / 1000) : 0;
+    lastT = now;
+    time += dt;
+    shown += (growth - shown) * Math.min(1, dt * 7);
+    if (Math.abs(growth - shown) < 0.0005) shown = growth;
+    draw();
+    raf = visible ? requestAnimationFrame(frame) : null;
+  }
+  function start() { if (!raf && !reduced) { lastT = 0; raf = requestAnimationFrame(frame); } }
+
+  /* ---------- events ---------- */
+  // capture: also catches Odoo's own scrolling wrapper (#wrapwrap)
+  document.addEventListener('scroll', function () { updateTarget(); start(); }, { capture: true, passive: true });
+
+  section.addEventListener('pointermove', function (ev) {
+    if (ev.pointerType !== 'mouse' && ev.pointerType !== 'pen') return;
+    mouse.x = ev.clientX - stage.getBoundingClientRect().left;
+    mouse.inside = true;
+  }, { passive: true });
+  section.addEventListener('pointerleave', function () { mouse.inside = false; });
+
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (entries) {
+      visible = entries[0].isIntersecting;
+      if (visible) start();
+    }).observe(section);
+  } else {
+    visible = true; start();
+  }
+
+  var resizeTimer = null;
+  window.addEventListener('resize', function () { clearTimeout(resizeTimer); resizeTimer = setTimeout(layout, 120); }, { passive: true });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(layout);
+  layout();
+})();
+</script>
+</body>
+</html>
