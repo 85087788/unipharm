@@ -3,10 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Unipharm | Dosage Forms &amp; Why Choose Us</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<title>Unipharm</title>
+<!-- Font: Helvetica (system font, nothing to load). Previous trial: Inter Tight from Google Fonts. -->
 <style>
 /* ==========================================================
    Unipharm – Dosage Forms showcase
@@ -15,49 +13,688 @@
    ========================================================== */
 body { margin: 0; }
 
-/* Shared solid background for both sections */
-:root { --uni-bg: #eef3fa; }
+/* ==========================================================
+   SHARED DESIGN TOKENS + TYPOGRAPHY (all sections)
+   Font: Helvetica (Arial where Helvetica is not installed).
+   Chinese falls back to the system UI font.
+   ========================================================== */
+:root {
+  --uni-bg: #ffffff; /* page background: white (the products section uses #f3f3f3) */
+  --uni-blue: #034ea2;
+  --uni-blue-dark: #023b7a;
+  --uni-dark: #10233e;
+  --uni-muted: #5b6b82;
+  /* Helvetica on Mac/iPhone; Windows has no Helvetica and shows Arial, its close match */
+  --uni-font: "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+}
+
+.uni-about,
+.uni-dosage-showcase,
+#uni-why-choose {
+  font-family: var(--uni-font);
+  font-weight: 400;
+  color: var(--uni-dark);
+  background: var(--uni-bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Section titles: large, light, tight */
+.uni-about-content h2,
+.uni-dosage-heading h2,
+#uni-why-choose .uni-why-header h2 {
+  margin: 0;
+  font-size: clamp(32px, 3.4vw, 50px);
+  line-height: 1.08;
+  font-weight: 400;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+}
+
+/* Desktop: sections fill one screen, so titles stay a touch smaller */
+@media (min-width: 1025px) {
+  .uni-about-content h2,
+  .uni-dosage-heading h2,
+  #uni-why-choose .uni-why-header h2 { font-size: clamp(32px, 3vw, 48px); }
+  .uni-dosage-heading p:not(.uni-kicker),
+  #uni-why-choose .uni-why-header p.uni-lead { max-width: none; margin-top: 10px; }
+}
+
+/* Small labels above titles (no rules / dashes) */
+.uni-about-kicker,
+.uni-kicker {
+  display: block;
+  margin: 0 0 14px;
+  color: var(--uni-blue);
+  font-size: 12px;
+  line-height: 1.3;
+  font-weight: 500;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+
+/* Lead text under titles */
+.uni-dosage-heading p:not(.uni-kicker),
+#uni-why-choose .uni-why-header p.uni-lead {
+  margin: 14px auto 0;
+  max-width: 640px;
+  font-size: clamp(15px, 1.2vw, 17px);
+  line-height: 1.5;
+  font-weight: 400;
+  letter-spacing: -0.005em;
+  color: var(--uni-muted);
+  text-wrap: balance;
+}
+
+/* Card titles */
+.uni-card-bottom h3,
+#uni-why-choose .uni-card h3 {
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  color: var(--uni-dark);
+}
+
+/* Buttons */
+.uni-about-button,
+.uni-card-cta {
+  font-weight: 500;
+  letter-spacing: -0.005em;
+}
+
+/* ==========================================================
+   HEADER / MENU (preview of the site navigation above the hero)
+   On Odoo the header comes from the theme; this shows how it sits with the new design.
+   ========================================================== */
+.uni-header,
+.uni-header * { box-sizing: border-box; }
+
+.uni-header {
+  --uni-header-h: 72px;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  font-family: var(--uni-font);
+  color: var(--uni-dark);
+  background: rgba(255, 255, 255, .88);
+  backdrop-filter: blur(16px) saturate(140%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+  -webkit-font-smoothing: antialiased;
+}
+
+.uni-header-bar {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  height: var(--uni-header-h);
+  padding: 0 clamp(20px, 4.5vw, 72px);
+  max-width: calc(1280px + 2 * clamp(20px, 4.5vw, 72px));
+  margin: 0 auto;
+}
+
+.uni-header-logo { display: block; flex: 0 0 auto; line-height: 0; }
+.uni-header-logo img { display: block; height: 38px; width: auto; }
+
+.uni-nav {
+  display: flex;
+  align-items: center;
+  gap: clamp(18px, 2.2vw, 36px);
+  margin: 0 auto;
+  padding: 0;
+  list-style: none;
+}
+
+.uni-nav li { margin: 0; }
+
+.uni-nav a,
+.uni-lang summary {
+  position: relative;
+  display: inline-block;
+  padding: 8px 0;
+  color: var(--uni-dark) !important;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: .02em;
+  text-decoration: none !important;
+  transition: color .25s ease;
+}
+
+/* underline draws in on hover */
+.uni-nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 2px;
+  height: 1.5px;
+  background: var(--uni-blue);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .3s cubic-bezier(.2, .8, .2, 1);
+}
+
+.uni-nav a:hover,
+.uni-nav a:focus-visible { color: var(--uni-blue) !important; }
+.uni-nav a:hover::after,
+.uni-nav a:focus-visible::after { transform: scaleX(1); }
+
+/* Language */
+.uni-lang { position: relative; flex: 0 0 auto; }
+
+.uni-lang summary {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--uni-muted) !important;
+  font-size: 13px;
+  cursor: pointer;
+  list-style: none;
+}
+
+.uni-lang summary::-webkit-details-marker { display: none; }
+
+.uni-lang summary::after {
+  content: "";
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 5px solid currentColor;
+  transition: transform .25s ease;
+}
+
+.uni-lang[open] summary::after { transform: rotate(180deg); }
+
+.uni-lang-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  min-width: 160px;
+  margin: 0;
+  padding: 6px;
+  list-style: none;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, .92);
+  border: 1px solid rgba(255, 255, 255, .9);
+  box-shadow: 0 16px 40px rgba(16, 35, 62, .14);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.uni-lang-menu a {
+  display: block;
+  padding: 9px 12px;
+  border-radius: 9px;
+  color: var(--uni-dark) !important;
+  font-size: 14px;
+  text-decoration: none !important;
+}
+
+.uni-lang-menu a:hover,
+.uni-lang-menu a[aria-current] { background: rgba(3, 78, 162, .08); color: var(--uni-blue) !important; }
+
+/* Menu button (phones and small tablets) */
+.uni-menu-btn {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  margin-left: auto;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(3, 78, 162, .08);
+  color: var(--uni-dark);
+  cursor: pointer;
+}
+
+.uni-menu-btn span,
+.uni-menu-btn span::before,
+.uni-menu-btn span::after {
+  content: "";
+  display: block;
+  width: 18px;
+  height: 1.5px;
+  background: currentColor;
+  transition: transform .3s ease, opacity .2s ease;
+}
+
+.uni-menu-btn span { position: relative; }
+.uni-menu-btn span::before { position: absolute; top: -6px; }
+.uni-menu-btn span::after { position: absolute; top: 6px; }
+.uni-header.uni-open .uni-menu-btn span { background: transparent; }
+.uni-header.uni-open .uni-menu-btn span::before { transform: translateY(6px) rotate(45deg); }
+.uni-header.uni-open .uni-menu-btn span::after { transform: translateY(-6px) rotate(-45deg); }
+
+.uni-nav a:focus-visible,
+.uni-lang summary:focus-visible,
+.uni-menu-btn:focus-visible { outline: 2px solid var(--uni-blue); outline-offset: 4px; border-radius: 6px; }
+
+.uni-header .uni-zh { display: none; }
+html[lang^="zh"] .uni-header .uni-en { display: none; }
+html[lang^="zh"] .uni-header .uni-zh { display: revert; }
+
+@media (max-width: 960px) {
+  .uni-header-bar { gap: 12px; }
+  .uni-menu-btn { display: inline-flex; }
+  .uni-lang { order: 2; }
+  .uni-menu-btn { order: 3; margin-left: 0; }
+  .uni-header-logo { margin-right: auto; }
+  .uni-nav {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: 8px clamp(20px, 4.5vw, 72px) 20px;
+    background: rgba(255, 255, 255, .98);
+    box-shadow: 0 20px 40px rgba(16, 35, 62, .1);
+    display: none;
+  }
+  .uni-header.uni-open .uni-nav { display: flex; }
+  .uni-nav a { display: block; padding: 14px 0; font-size: 17px; border-bottom: 1px solid rgba(16, 35, 62, .08); }
+  .uni-nav a::after { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .uni-nav a::after,
+  .uni-menu-btn span,
+  .uni-menu-btn span::before,
+  .uni-menu-btn span::after { transition: none; }
+}
+
+/* ==========================================================
+   HERO (top of the page)
+   The factory film in a rounded frame on the page background, like the About photo,
+   with the title, actions and three facts laid over its darker left side.
+   Video: Unipharm's own Vimeo film; the factory photo shows until it plays
+   (and stays with reduced motion).
+   ========================================================== */
+.uni-hero,
+.uni-hero * { box-sizing: border-box; }
+
+.uni-hero {
+  font-family: var(--uni-font);
+  color: #fff;
+  background: var(--uni-bg);
+  padding: clamp(8px, 1.1vw, 16px);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.uni-hero-frame {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  /* one screen together with the 72px header */
+  min-height: calc(100vh - 72px - 2 * clamp(8px, 1.1vw, 16px));
+  min-height: calc(100svh - 72px - 2 * clamp(8px, 1.1vw, 16px));
+  padding: clamp(28px, 4.5vw, 72px) clamp(20px, 4.5vw, 72px);
+  border-radius: clamp(20px, 2vw, 28px);
+  background: linear-gradient(150deg, #2d5f9f 0%, #10233e 100%);
+  box-shadow: 0 24px 60px rgba(16, 35, 62, .14);
+}
+
+/* MEDIA: photo underneath, film on top once it plays */
+.uni-hero-media,
+.uni-hero-media img,
+.uni-hero-shade {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+}
+
+.uni-hero-media { overflow: hidden; }
+
+.uni-hero-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 70% 60%;
+}
+
+/* "cover" sizing for a 16:9 iframe in any frame shape */
+.uni-hero-media iframe {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: max(100%, 177.78vh);
+  height: max(100%, 56.25vw);
+  border: 0;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 1.2s ease;
+}
+
+.uni-hero-media iframe.uni-ready { opacity: 1; }
+
+/* Shade: deep blue on the text side and along the bottom, clear on the right */
+.uni-hero-shade {
+  z-index: -1;
+  background:
+    radial-gradient(ellipse 58% 62% at 0% 100%, rgba(8, 26, 52, .72) 0%, rgba(8, 26, 52, .42) 48%, rgba(8, 26, 52, 0) 100%),
+    linear-gradient(0deg, rgba(8, 26, 52, .35) 0%, rgba(8, 26, 52, 0) 45%);
+}
+
+/* CONTENT */
+.uni-hero-inner {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.uni-hero-copy { max-width: 720px; min-width: 0; }
+
+.uni-hero .uni-kicker { color: rgba(255, 255, 255, .9); margin-bottom: 18px; }
+
+.uni-hero h1 {
+  margin: 0;
+  font-size: clamp(42px, 5.4vw, 80px);
+  line-height: 1.02;
+  font-weight: 400;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+  /* a soft shadow keeps the white title readable on the lighter film */
+  text-shadow: 0 2px 24px rgba(8, 26, 52, .35);
+}
+
+.uni-hero .uni-kicker { text-shadow: 0 1px 12px rgba(8, 26, 52, .4); }
+
+/* One line of small text under the title */
+.uni-hero-note {
+  margin: 22px 0 0;
+  color: rgba(255, 255, 255, .85);
+  font-size: clamp(14px, 1.1vw, 16px);
+  line-height: 1.5;
+  letter-spacing: -0.005em;
+  text-shadow: 0 1px 12px rgba(8, 26, 52, .45);
+}
+
+/* ENTRANCE: rises in once on load (no JS needed) */
+@keyframes uni-hero-rise {
+  from { opacity: 0; translate: 0 28px; filter: blur(8px); }
+  to   { opacity: 1; translate: none; filter: none; }
+}
+
+@keyframes uni-hero-settle {
+  from { transform: scale(1.06); }
+  to   { transform: none; }
+}
+
+.uni-hero-media { animation: uni-hero-settle 2.4s cubic-bezier(.2, .7, .2, 1) both; }
+
+.uni-hero-enter {
+  animation: uni-hero-rise 1s cubic-bezier(.2, .8, .2, 1) both;
+  animation-delay: calc(.2s + var(--i, 0) * .12s);
+}
+
+/* LANGUAGE */
+.uni-hero .uni-zh { display: none; }
+html[lang^="zh"] .uni-hero .uni-en { display: none; }
+html[lang^="zh"] .uni-hero .uni-zh { display: revert; }
+
+/* PHONE */
+@media (max-width: 600px) {
+  .uni-hero-frame { padding: 28px 18px 18px; }
+  .uni-hero-shade {
+    background: linear-gradient(0deg, rgba(8, 26, 52, .72) 0%, rgba(8, 26, 52, .38) 50%, rgba(8, 26, 52, 0) 78%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .uni-hero-media,
+  .uni-hero-enter { animation: none; }
+  .uni-hero-media iframe { display: none; }
+}
+
+/* ==========================================================
+   About Unipharm
+   Same tokens, background, glass, kicker and CTA as the sections below.
+   ========================================================== */
+.uni-about,
+.uni-about * { box-sizing: border-box; }
+
+.uni-about {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: clamp(56px, 7vw, 100px) clamp(16px, 4vw, 72px);
+}
+
+.uni-about-container {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(32px, 5vw, 80px);
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+/* PHOTO: the image alone, rounded like the hero frame (no white frame) */
+.uni-about-photo {
+  position: relative;
+  min-width: 0;
+}
+
+.uni-about-media {
+  position: relative;
+  aspect-ratio: 3 / 2; /* matches the factory photo */
+  overflow: hidden;
+  border-radius: clamp(20px, 2vw, 28px); /* same corners as the hero frame */
+  /* shown if the photo is missing */
+  background:
+    radial-gradient(ellipse at 30% 20%, rgba(255, 255, 255, .55), transparent 55%),
+    linear-gradient(150deg, #d5e0ef 0%, #7f9dc9 55%, #2d5f9f 100%);
+}
+
+.uni-about-media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 72% 60%; /* keeps the building and the sign in frame when cropped */
+  transition: transform 1.2s cubic-bezier(.2, .7, .2, 1);
+}
+
+@media (hover: hover) {
+  .uni-about-photo:hover .uni-about-media img { transform: scale(1.035); }
+}
+
+/* Tech overlay: cool depth gradient + a fine grid fading in from the lower right */
+.uni-about-media::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(160deg, rgba(3, 78, 162, 0) 45%, rgba(16, 35, 62, .32) 100%),
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, .10) 0 1px, transparent 1px 44px),
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, .10) 0 1px, transparent 1px 44px);
+  -webkit-mask-image: linear-gradient(135deg, transparent 35%, #000 100%);
+  mask-image: linear-gradient(135deg, transparent 35%, #000 100%);
+}
+
+/* A soft band of light that sweeps across once on load (and again on hover) */
+.uni-about-media::after {
+  content: "";
+  position: absolute;
+  inset: -20% auto -20% -60%;
+  z-index: 2;
+  width: 45%;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .32), transparent);
+  transform: skewX(-18deg) translateX(0);
+  opacity: 0;
+}
+
+.uni-about-photo.uni-swept .uni-about-media::after {
+  opacity: 1;
+  animation: uni-about-sweep 1.8s cubic-bezier(.4, 0, .2, 1) .1s 1 both;
+}
+
+@media (hover: hover) {
+  .uni-about-photo:hover .uni-about-media::after { opacity: 1; animation: uni-about-sweep 1.4s cubic-bezier(.4, 0, .2, 1) 0s 1 both; }
+}
+
+@keyframes uni-about-sweep {
+  from { transform: skewX(-18deg) translateX(0); }
+  to   { transform: skewX(-18deg) translateX(420%); }
+}
+
+/* TEXT */
+.uni-about-content { min-width: 0; }
+
+.uni-about-content h2 .uni-accent { color: var(--uni-blue); }
+
+.uni-about-copy { margin-top: 22px; max-width: 540px; }
+
+.uni-about-copy p {
+  margin: 0 0 14px;
+  color: var(--uni-muted);
+  font-size: clamp(15px, 1.15vw, 16px);
+  line-height: 1.75;
+}
+
+.uni-about-copy p:last-child { margin-bottom: 0; }
+
+/* CTA: same blue pill + expanding arrow as the dosage cards */
+.uni-about-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+  min-height: 48px;
+  margin-top: 32px;
+  padding: 6px 24px;
+  border-radius: 999px;
+  background: var(--uni-blue);
+  color: #fff !important;
+  text-decoration: none !important;
+  font-size: 15px;
+  line-height: 1;
+  transition: background .3s ease, gap .3s ease, padding .3s ease, box-shadow .3s ease;
+}
+
+.uni-about-arrow {
+  flex: 0 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 0;
+  height: 34px;
+  overflow: hidden;
+  border-radius: 50%;
+  /* frosted glass: a light veil, a thin bright rim and a top highlight */
+  background: linear-gradient(160deg, rgba(255, 255, 255, .42) 0%, rgba(255, 255, 255, .16) 100%);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, .45),
+    inset 0 1px 1px rgba(255, 255, 255, .6),
+    0 2px 8px rgba(2, 30, 70, .18);
+  backdrop-filter: blur(6px) saturate(160%);
+  -webkit-backdrop-filter: blur(6px) saturate(160%);
+  opacity: 0;
+  transform: scale(.4);
+  transition: flex-basis .3s ease, width .3s ease, opacity .2s ease, transform .3s ease;
+}
+
+.uni-about-arrow::after {
+  content: "";
+  margin-left: 2px;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-left: 7px solid #fff;
+}
+
+.uni-about-button:hover,
+.uni-about-button:focus-visible {
+  gap: 12px;
+  padding-right: 7px;
+  background: var(--uni-blue-dark);
+  box-shadow: 0 10px 24px rgba(3, 78, 162, .22);
+}
+
+.uni-about-button:hover .uni-about-arrow,
+.uni-about-button:focus-visible .uni-about-arrow {
+  flex-basis: 34px;
+  width: 34px;
+  opacity: 1;
+  transform: scale(1);
+}
+
+.uni-about-button:focus-visible { outline: 3px solid var(--uni-blue); outline-offset: 4px; }
+
+/* SCROLL REVEAL: each block rises in as it scrolls up the screen (JS sets --uni-h; no JS = visible) */
+.uni-about.uni-js .uni-about-reveal {
+  opacity: var(--uni-h, 0);
+  transform: translateY(calc((1 - var(--uni-h, 0)) * 32px));
+  filter: blur(calc((1 - var(--uni-h, 0)) * 6px));
+  will-change: opacity, transform;
+}
+
+/* LANGUAGE */
+.uni-about .uni-zh { display: none; }
+html[lang^="zh"] .uni-about .uni-en { display: none; }
+html[lang^="zh"] .uni-about .uni-zh { display: revert; }
+
+/* DESKTOP: one screen, like the other sections */
+@media (min-width: 1025px) {
+  .uni-about {
+    min-height: 100vh;
+    min-height: 100svh;
+    display: flex;
+    align-items: center;
+    padding-top: clamp(32px, 5vh, 72px);
+    padding-bottom: clamp(32px, 5vh, 72px);
+  }
+  .uni-about-media { max-height: calc(100svh - 160px); }
+}
+
+/* TABLET & MOBILE */
+@media (hover: none) {
+  .uni-about-button { gap: 12px; padding-right: 7px; }
+  .uni-about-arrow { flex-basis: 34px; width: 34px; opacity: 1; transform: none; }
+}
+
+@media (max-width: 900px) {
+  .uni-about-container { grid-template-columns: 1fr; max-width: 680px; gap: 36px; }
+  .uni-about-media { aspect-ratio: 3 / 2; }
+}
+
+@media (max-width: 480px) {
+  .uni-about { padding: 48px 16px; }
+  .uni-about-media { aspect-ratio: 4 / 3; border-radius: 20px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .uni-about.uni-js .uni-about-reveal { opacity: 1; transform: none; filter: none; }
+  .uni-about-media::after { display: none; }
+  .uni-about-media img,
+  .uni-about-button,
+  .uni-about-arrow { transition: none; }
+  .uni-about-photo:hover .uni-about-media img { transform: none; }
+}
+
 
 .uni-dosage-showcase,
 .uni-dosage-showcase * { box-sizing: border-box; }
 
 /* SECTION */
 .uni-dosage-showcase {
-  --uni-blue: #1683ef;
-  --uni-blue-dark: #0f6fd1;
-  --uni-dark: #10233e;
-  --uni-muted: #5b6b82;
   position: relative;
   padding: clamp(48px, 7vw, 96px) clamp(16px, 4vw, 72px);
-  font-family: "Inter", Arial, sans-serif;
-  color: var(--uni-dark);
-  background: var(--uni-bg);
+  background: #f3f3f3; /* light grey, sets the products apart from the blue-tinted sections */
 }
 
-/* HEADING */
+/* HEADING (title + lead styles are shared, see top) */
 .uni-dosage-heading {
   max-width: 900px;
   margin: 0 auto clamp(28px, 4vw, 48px);
   text-align: center;
-}
-
-.uni-dosage-heading h2 {
-  margin: 0;
-  font-size: clamp(28px, 3.4vw, 46px);
-  line-height: 1.2;
-  font-weight: 600;
-  letter-spacing: -0.01em;
-  text-wrap: balance;
-}
-
-.uni-dosage-heading p {
-  margin: 14px auto 0;
-  max-width: 640px;
-  font-size: clamp(14px, 1.2vw, 16px);
-  line-height: 1.55;
-  font-weight: 500;
-  color: var(--uni-muted);
-  text-wrap: balance;
 }
 
 /* GRID */
@@ -98,7 +735,7 @@ body { margin: 0; }
   transform: translateY(-6px);
   background: rgba(255, 255, 255, .75);
   box-shadow:
-    0 22px 48px rgba(30, 105, 190, .16),
+    0 22px 48px rgba(3, 78, 162, .16),
     inset 0 1px 0 rgba(255, 255, 255, .9);
 }
 
@@ -144,7 +781,7 @@ body { margin: 0; }
   width: 70%;
   aspect-ratio: 1;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(65, 166, 255, .24) 0%, rgba(65, 166, 255, 0) 70%);
+  background: radial-gradient(circle, rgba(60, 120, 200, .24) 0%, rgba(60, 120, 200, 0) 70%);
   opacity: .45;
   transform: scale(.85);
   transition: opacity .45s ease, transform .45s ease;
@@ -170,16 +807,14 @@ body { margin: 0; }
 
 .uni-card-bottom h3 {
   margin: 0 0 4px;
-  font-size: clamp(17px, 1.4vw, 20px);
-  line-height: 1.25;
-  font-weight: 700;
-  color: var(--uni-dark);
+  font-size: clamp(18px, 1.5vw, 22px);
+  line-height: 1.2;
   overflow-wrap: anywhere;
 }
 
 .uni-card-bottom p {
   margin: 0;
-  font-size: 13px;
+  font-size: 14px;
   line-height: 1.45;
   color: var(--uni-muted);
   overflow-wrap: anywhere;
@@ -195,8 +830,7 @@ body { margin: 0; }
   border-radius: 999px;
   background: var(--uni-blue);
   color: #fff;
-  font-size: 13px;
-  font-weight: 700;
+  font-size: 14px;
   line-height: 1;
   white-space: nowrap;
   transition: background .3s ease, gap .3s ease, padding .3s ease;
@@ -211,7 +845,14 @@ body { margin: 0; }
   height: 30px;
   overflow: hidden;
   border-radius: 50%;
-  background: rgba(0, 0, 0, .14);
+  /* frosted glass: a light veil, a thin bright rim and a top highlight */
+  background: linear-gradient(160deg, rgba(255, 255, 255, .42) 0%, rgba(255, 255, 255, .16) 100%);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, .45),
+    inset 0 1px 1px rgba(255, 255, 255, .6),
+    0 2px 8px rgba(2, 30, 70, .18);
+  backdrop-filter: blur(6px) saturate(160%);
+  -webkit-backdrop-filter: blur(6px) saturate(160%);
   opacity: 0;
   transform: scale(.4);
   transition: flex-basis .3s ease, width .3s ease, opacity .2s ease, transform .3s ease;
@@ -285,8 +926,6 @@ html[lang^="zh"] .uni-dosage-showcase .uni-card-cta-label.uni-zh { display: inli
     max-width: 1280px;
     margin-bottom: clamp(18px, 3vh, 36px);
   }
-  .uni-dosage-heading h2 { font-size: clamp(28px, 2.8vw, 42px); }
-  .uni-dosage-heading p { max-width: none; margin-top: 10px; }
   .uni-dosage-grid {
     flex: 1 1 0;
     min-height: 0;
@@ -303,8 +942,27 @@ html[lang^="zh"] .uni-dosage-showcase .uni-card-cta-label.uni-zh { display: inli
   .uni-card-arrow { flex-basis: 30px; width: 30px; opacity: 1; transform: none; }
 }
 
+/* SCROLL REVEAL: heading and cards rise in once they enter the screen (JS adds .uni-in; no JS = visible).
+   A timed transition, so it plays fully however fast you scroll; --uni-d staggers cards in a row.
+   Uses `translate` (not `transform`) so the cards' hover lift still works; no blur on cards,
+   because a filter would switch off their frosted-glass backdrop. */
+.uni-dosage-showcase.uni-js .uni-dosage-reveal {
+  opacity: 0;
+  translate: 0 48px;
+  transition:
+    opacity .8s ease var(--uni-d, 0s),
+    translate .9s cubic-bezier(.2, .8, .2, 1) var(--uni-d, 0s),
+    filter .8s ease var(--uni-d, 0s),
+    transform .4s cubic-bezier(.2, .8, .2, 1),
+    box-shadow .4s ease,
+    background .4s ease;
+}
+.uni-dosage-showcase.uni-js .uni-dosage-heading.uni-dosage-reveal { filter: blur(8px); }
+.uni-dosage-showcase.uni-js .uni-dosage-reveal.uni-in { opacity: 1; translate: none; filter: none; }
+
 /* ACCESSIBILITY */
 @media (prefers-reduced-motion: reduce) {
+  .uni-dosage-showcase.uni-js .uni-dosage-reveal { opacity: 1; translate: none; filter: none; }
   .uni-card-visual img { animation: none; }
   .uni-dosage-card,
   .uni-card-visual img,
@@ -321,16 +979,9 @@ html[lang^="zh"] .uni-dosage-showcase .uni-card-cta-label.uni-zh { display: inli
 #uni-why-choose * { box-sizing: border-box; }
 
 #uni-why-choose {
-  --uni-blue: #1683ef;
-  --uni-blue-dark: #0f6fd1;
-  --uni-dark: #10233e;
-  --uni-muted: #5b6b82;
   position: relative;
   overflow: hidden;
   overflow: clip; /* clip (not hidden) so position: sticky keeps working */
-  font-family: "Inter", Arial, sans-serif;
-  color: var(--uni-dark);
-  background: var(--uni-bg);
 }
 
 /* The stage that holds header, light and cards */
@@ -371,47 +1022,8 @@ html[lang^="zh"] .uni-dosage-showcase .uni-card-cta-label.uni-zh { display: inli
   text-align: center;
 }
 
-#uni-why-choose .uni-kicker {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  margin: 0 0 12px;
-  color: var(--uni-blue);
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: .18em;
-  text-transform: uppercase;
-}
-
-#uni-why-choose .uni-kicker::before,
-#uni-why-choose .uni-kicker::after {
-  content: "";
-  width: 22px;
-  height: 1px;
-  background: currentColor;
-  opacity: .5;
-}
-
-#uni-why-choose .uni-why-header h2 {
-  margin: 0;
-  font-size: clamp(28px, 3.4vw, 46px);
-  line-height: 1.2;
-  font-weight: 600;
-  letter-spacing: -0.01em;
-  text-wrap: balance;
-}
-
+/* kicker, title and lead styles are shared, see top */
 #uni-why-choose .uni-why-header h2 span { color: var(--uni-blue); }
-
-#uni-why-choose .uni-why-header p.uni-lead {
-  margin: 14px auto 0;
-  max-width: 640px;
-  font-size: clamp(14px, 1.2vw, 16px);
-  line-height: 1.55;
-  font-weight: 500;
-  color: var(--uni-muted);
-  text-wrap: balance;
-}
 
 /* LAYOUT: 3 cards | light core | 3 cards */
 #uni-why-choose .uni-why-layout {
@@ -459,7 +1071,7 @@ html[lang^="zh"] .uni-dosage-showcase .uni-card-cta-label.uni-zh { display: inli
   transform: translateY(-6px);
   background: rgba(255, 255, 255, .75);
   box-shadow:
-    0 22px 48px rgba(30, 105, 190, .16),
+    0 22px 48px rgba(3, 78, 162, .16),
     inset 0 1px 0 rgba(255, 255, 255, .9);
 }
 
@@ -473,8 +1085,8 @@ html[lang^="zh"] .uni-dosage-showcase .uni-card-cta-label.uni-zh { display: inli
   height: 32px;
   border-radius: 50%;
   color: var(--uni-blue);
-  background: rgba(22, 131, 239, .08);
-  border: 1px solid rgba(22, 131, 239, .14);
+  background: rgba(3, 78, 162, .08);
+  border: 1px solid rgba(3, 78, 162, .14);
   transition: background .6s ease, color .6s ease, box-shadow .6s ease;
 }
 
@@ -483,15 +1095,15 @@ html[lang^="zh"] .uni-dosage-showcase .uni-card-cta-label.uni-zh { display: inli
 #uni-why-choose .uni-card.uni-lit .uni-card-mark {
   color: #fff;
   background: var(--uni-blue);
-  box-shadow: 0 0 0 5px rgba(22, 131, 239, .12);
+  box-shadow: 0 0 0 5px rgba(3, 78, 162, .12);
 }
 
 #uni-why-choose .uni-stat {
   margin: 0 44px 8px 0;
   color: var(--uni-blue);
   font-size: clamp(30px, 2.8vw, 42px);
-  font-weight: 700;
-  letter-spacing: -.03em;
+  font-weight: 300;
+  letter-spacing: -.045em;
   line-height: 1;
   white-space: nowrap;
   font-variant-numeric: tabular-nums;
@@ -502,7 +1114,7 @@ html[lang^="zh"] .uni-dosage-showcase .uni-card-cta-label.uni-zh { display: inli
 #uni-why-choose .uni-unit {
   margin-left: 6px;
   font-size: .42em;
-  font-weight: 700;
+  font-weight: 500;
   letter-spacing: .06em;
   text-transform: uppercase;
 }
@@ -511,7 +1123,6 @@ html[lang^="zh"] .uni-dosage-showcase .uni-card-cta-label.uni-zh { display: inli
   margin: 0;
   font-size: clamp(16px, 1.35vw, 19px);
   line-height: 1.3;
-  font-weight: 700;
   color: var(--uni-dark);
 }
 
@@ -546,7 +1157,7 @@ html[lang^="zh"] .uni-dosage-showcase .uni-card-cta-label.uni-zh { display: inli
   margin: 18px 0 10px;
   color: #6d8fb0;
   font-size: 10px;
-  font-weight: 700;
+  font-weight: 500;
   letter-spacing: .2em;
   text-transform: uppercase;
   transition: opacity .6s ease;
@@ -562,7 +1173,7 @@ html[lang^="zh"] .uni-dosage-showcase .uni-card-cta-label.uni-zh { display: inli
   margin-top: 14px;
   border-radius: 2px;
   overflow: hidden;
-  background: rgba(22, 131, 239, .14);
+  background: rgba(3, 78, 162, .14);
 }
 
 #uni-why-choose.uni-pin .uni-progress { display: block; margin-top: 0; }
@@ -628,8 +1239,6 @@ html[lang^="zh"] #uni-why-choose .uni-zh { display: revert; }
     max-width: 1280px;
     margin-bottom: clamp(18px, 3vh, 36px);
   }
-  #uni-why-choose .uni-why-header h2 { font-size: clamp(28px, 2.8vw, 42px); }
-  #uni-why-choose .uni-why-header p.uni-lead { max-width: none; margin-top: 10px; }
   #uni-why-choose .uni-why-layout {
     flex: 1 1 0;
     min-height: 0;
@@ -682,8 +1291,109 @@ html[lang^="zh"] #uni-why-choose .uni-zh { display: revert; }
 </style>
 </head>
 <body>
-<section class="uni-dosage-showcase">
-  <div class="uni-dosage-heading">
+<!-- Preview of the site menu (on Odoo the theme header is used instead) -->
+<header class="uni-header">
+  <div class="uni-header-bar">
+    <a class="uni-header-logo" href="/" aria-label="Unipharm home">
+      <img src="https://www.unipharmnz.co.nz/web/image/website/1/logo/UHM?unique=15fa878" alt="Unipharm" height="38">
+    </a>
+
+    <ul class="uni-nav" id="uni-nav">
+      <li><a href="/quality"><span class="uni-en">Quality</span><span class="uni-zh" lang="zh">质量资质</span></a></li>
+      <li><a href="/unipharm-1"><span class="uni-en">Products</span><span class="uni-zh" lang="zh">产品剂型</span></a></li>
+      <li><a href="/service1"><span class="uni-en">Services</span><span class="uni-zh" lang="zh">一站式服务</span></a></li>
+      <li><a href="/blog"><span class="uni-en">News</span><span class="uni-zh" lang="zh">新闻资讯</span></a></li>
+      <li><a href="/aboutus1"><span class="uni-en">About us</span><span class="uni-zh" lang="zh">关于我们</span></a></li>
+      <li><a href="/contactus1"><span class="uni-en">Contact</span><span class="uni-zh" lang="zh">联系我们</span></a></li>
+    </ul>
+
+    <details class="uni-lang">
+      <summary><span class="uni-en">English (UK)</span><span class="uni-zh" lang="zh">简体中文</span></summary>
+      <ul class="uni-lang-menu">
+        <li><a href="/home1" lang="en">English (UK)</a></li>
+        <li><a href="/zh_CN/home1" lang="zh">简体中文</a></li>
+        <li><a href="/ko_KR/home1" lang="ko">한국어 (KR)</a></li>
+      </ul>
+    </details>
+
+    <button class="uni-menu-btn" type="button" aria-controls="uni-nav" aria-expanded="false" aria-label="Menu"><span></span></button>
+  </div>
+</header>
+
+<section class="uni-hero" aria-labelledby="uni-hero-title">
+  <div class="uni-hero-frame">
+
+    <div class="uni-hero-media" aria-hidden="true">
+      <!-- Factory photo: shows until the film plays. On Odoo: replace with its /web/image/... URL. -->
+      <img src="images/Company.png" alt="" width="2000" height="1328" loading="eager" fetchpriority="high" decoding="async">
+      <!-- Unipharm's own film (Vimeo 918102877), muted background loop -->
+      <iframe src="https://player.vimeo.com/video/918102877?background=1&amp;autoplay=1&amp;muted=1&amp;loop=1&amp;autopause=0&amp;dnt=1"
+              title="Unipharm factory film" tabindex="-1" allow="autoplay; fullscreen; picture-in-picture"></iframe>
+    </div>
+    <div class="uni-hero-shade" aria-hidden="true"></div>
+
+    <div class="uni-hero-inner">
+      <div class="uni-hero-copy">
+        <p class="uni-kicker uni-hero-enter" style="--i:0">Kia Ora</p>
+
+        <h1 id="uni-hero-title" class="uni-hero-enter" style="--i:1">
+          <span class="uni-en">Give your product<br>a winning start.</span>
+          <span class="uni-zh" lang="zh">联合，<br>让产品赢在起点</span>
+        </h1>
+
+        <p class="uni-hero-note uni-hero-enter" style="--i:2">
+          <span class="uni-en">New Zealand health supplement R&amp;D and manufacturing since 1979.</span>
+          <span class="uni-zh" lang="zh">始于 1979 年，新西兰保健品研发与制造。</span>
+        </p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="uni-about" aria-labelledby="uni-about-title">
+  <div class="uni-about-container">
+
+    <!-- Factory photograph -->
+    <div class="uni-about-photo uni-about-reveal" style="--i:0">
+      <div class="uni-about-media">
+        <!-- Factory photo (on Odoo: replace with its /web/image/... URL) -->
+        <img src="images\Company.png"
+             alt="Unipharm manufacturing facility in Auckland, New Zealand"
+             width="2000" height="1328" loading="eager" decoding="async"
+             onerror="this.style.display='none'">
+      </div>
+    </div>
+
+    <!-- Company introduction -->
+    <div class="uni-about-content">
+      <p class="uni-about-kicker uni-about-reveal" style="--i:1"><span class="uni-en">About Unipharm</span><span class="uni-zh" lang="zh">关于 Unipharm</span></p>
+
+      <h2 id="uni-about-title" class="uni-about-reveal" style="--i:2">
+        <span class="uni-en">New Zealand expertise.<br><span class="uni-accent">Healthier possibilities.</span></span>
+        <span class="uni-zh" lang="zh">新西兰专业实力，<br><span class="uni-accent">开启更健康的可能。</span></span>
+      </h2>
+
+      <div class="uni-about-copy uni-about-reveal" style="--i:3">
+        <p class="uni-en">Since 1979, Unipharm has brought together research, formulation and manufacturing expertise to help health brands bring their ideas to life.</p>
+        <p class="uni-zh" lang="zh">自 1979 年起，Unipharm 融合研发、配方与生产能力，助力健康品牌将创意变为现实。</p>
+        <p class="uni-en">Drawing on New Zealand’s dairy, plant and marine ingredients, we develop tailored nutritional products across a wide range of dosage forms.</p>
+        <p class="uni-zh" lang="zh">依托新西兰优质的乳制品、植物与海洋原料，我们为客户开发覆盖多种剂型的定制营养产品。</p>
+      </div>
+
+      <!-- Replace with your About page address -->
+      <a class="uni-about-button uni-about-reveal" style="--i:5" href="/about-us">
+        <span class="uni-en">Discover Unipharm</span><span class="uni-zh" lang="zh">了解 Unipharm</span>
+        <span class="uni-about-arrow" aria-hidden="true"></span>
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<section class="uni-dosage-showcase" id="uni-dosage">
+  <div class="uni-dosage-heading uni-dosage-reveal">
+    <p class="uni-kicker"><span class="uni-en">Our Dosage Forms</span><span class="uni-zh" lang="zh">产品剂型</span></p>
     <h2 class="uni-en">Delivering Premium Health Products Worldwide</h2>
     <h2 class="uni-zh" lang="zh">为全球提供优质健康产品</h2>
     <p class="uni-en">We excel in patented processes and complex formula R&amp;D, offering full customization to meet your needs.</p>
@@ -693,7 +1403,7 @@ html[lang^="zh"] #uni-why-choose .uni-zh { display: revert; }
   <div class="uni-dosage-grid">
 
     <!-- 01 Soft Capsules -->
-    <a class="uni-dosage-card" href="/contactus">
+    <a class="uni-dosage-card uni-dosage-reveal" href="/contactus">
       <div class="uni-card-visual">
         <div class="uni-glow"></div>
         <!-- Images live in the images/ folder next to this file. On Odoo, replace each src with its /web/image/... URL. -->
@@ -711,7 +1421,7 @@ html[lang^="zh"] #uni-why-choose .uni-zh { display: revert; }
     </a>
 
     <!-- 02 Hard Capsules -->
-    <a class="uni-dosage-card" href="/contactus">
+    <a class="uni-dosage-card uni-dosage-reveal" href="/contactus">
       <div class="uni-card-visual">
         <div class="uni-glow"></div>
         <img src="images/unipharm_hard_capsules.png" alt="" width="500" height="500" loading="lazy" decoding="async">
@@ -728,7 +1438,7 @@ html[lang^="zh"] #uni-why-choose .uni-zh { display: revert; }
     </a>
 
     <!-- 03 Liquid -->
-    <a class="uni-dosage-card" href="/contactus">
+    <a class="uni-dosage-card uni-dosage-reveal" href="/contactus">
       <div class="uni-card-visual">
         <div class="uni-glow"></div>
         <img src="images/unipharm_liquid.png" alt="" width="500" height="500" loading="lazy" decoding="async">
@@ -745,7 +1455,7 @@ html[lang^="zh"] #uni-why-choose .uni-zh { display: revert; }
     </a>
 
     <!-- 04 Tablets -->
-    <a class="uni-dosage-card" href="/contactus">
+    <a class="uni-dosage-card uni-dosage-reveal" href="/contactus">
       <div class="uni-card-visual">
         <div class="uni-glow"></div>
         <img src="images/unipharm_tablets.png" alt="" width="500" height="500" loading="lazy" decoding="async">
@@ -762,7 +1472,7 @@ html[lang^="zh"] #uni-why-choose .uni-zh { display: revert; }
     </a>
 
     <!-- 05 Powder -->
-    <a class="uni-dosage-card" href="/contactus">
+    <a class="uni-dosage-card uni-dosage-reveal" href="/contactus">
       <div class="uni-card-visual">
         <div class="uni-glow"></div>
         <img src="images/unipharm_powder.png" alt="" width="500" height="500" loading="lazy" decoding="async">
@@ -779,7 +1489,7 @@ html[lang^="zh"] #uni-why-choose .uni-zh { display: revert; }
     </a>
 
     <!-- 06 Drops & Spray -->
-    <a class="uni-dosage-card" href="/contactus">
+    <a class="uni-dosage-card uni-dosage-reveal" href="/contactus">
       <div class="uni-card-visual">
         <div class="uni-glow"></div>
         <img src="images/unipharm_drops_spray.png" alt="" width="500" height="500" loading="lazy" decoding="async">
@@ -881,6 +1591,127 @@ html[lang^="zh"] #uni-why-choose .uni-zh { display: revert; }
 </section>
 
 
+<script>
+/* Header – menu button on small screens; Escape or a link closes it. */
+(function () {
+  var header = document.querySelector('.uni-header');
+  if (!header || header.dataset.uniInit) return;
+  header.dataset.uniInit = '1';
+  var btn = header.querySelector('.uni-menu-btn');
+  function set(open) {
+    header.classList.toggle('uni-open', open);
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  }
+  btn.addEventListener('click', function () { set(!header.classList.contains('uni-open')); });
+  header.querySelectorAll('.uni-nav a').forEach(function (a) { a.addEventListener('click', function () { set(false); }); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') set(false); });
+})();
+</script>
+<script>
+/* Hero film – fade the Vimeo film in only once it is actually playing,
+   so the factory photo shows instead of a black player while it loads. */
+(function () {
+  var frame = document.querySelector('.uni-hero-media iframe');
+  if (!frame || frame.dataset.uniInit) return;
+  frame.dataset.uniInit = '1';
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  function send(msg) {
+    try { frame.contentWindow.postMessage(JSON.stringify(msg), 'https://player.vimeo.com'); } catch (e) {}
+  }
+  window.addEventListener('message', function (e) {
+    if (!/^https:\/\/player\.vimeo\.com$/.test(e.origin) || e.source !== frame.contentWindow) return;
+    var d = e.data;
+    if (typeof d === 'string') { try { d = JSON.parse(d); } catch (err) { return; } }
+    if (!d) return;
+    if (d.event === 'ready') {
+      send({ method: 'addEventListener', value: 'playProgress' });
+      send({ method: 'addEventListener', value: 'play' });
+    } else if (d.event === 'play' || (d.event === 'playProgress' && d.data && d.data.seconds > 0.2)) {
+      frame.classList.add('uni-ready');
+    }
+  });
+  // in case the player was ready before this script ran
+  frame.addEventListener('load', function () { send({ method: 'addEventListener', value: 'playProgress' }); });
+  send({ method: 'addEventListener', value: 'playProgress' });
+})();
+</script>
+<script>
+/* About Unipharm – scroll reveal.
+   Photo, kicker, title, text, tags and button each rise in as they scroll up the screen,
+   and fold back when scrolling up. The light sweep on the photo plays once it is fully in. */
+(function () {
+  var section = document.querySelector('.uni-about');
+  if (!section || section.dataset.uniInit) return;
+  section.dataset.uniInit = '1';
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  var parts = [].slice.call(section.querySelectorAll('.uni-about-reveal'));
+  var photo = section.querySelector('.uni-about-photo');
+  section.classList.add('uni-js');
+
+  function clamp(v) { return v < 0 ? 0 : v > 1 ? 1 : v; }
+  function ease(t) { return 1 - Math.pow(1 - t, 3); }
+
+  var ticking = false;
+  function update() {
+    ticking = false;
+    var vh = window.innerHeight;
+    parts.forEach(function (el, i) {
+      var top = el.getBoundingClientRect().top;
+      // starts when the block's top passes 95% of the screen, done ~25% of a screen later;
+      // a small per-item offset keeps side-by-side blocks in sequence
+      var e = ease(clamp((vh * 0.95 - top - i * 12) / (vh * 0.25)));
+      el.style.setProperty('--uni-h', e.toFixed(3));
+      if (el === photo) {
+        if (e > 0.98) photo.classList.add('uni-swept');
+        else if (e < 0.05) photo.classList.remove('uni-swept');
+      }
+    });
+  }
+  function request() { if (!ticking) { ticking = true; requestAnimationFrame(update); } }
+
+  // capture: also catches Odoo's own scrolling wrapper (#wrapwrap)
+  document.addEventListener('scroll', request, { capture: true, passive: true });
+  window.addEventListener('resize', request, { passive: true });
+  update();
+})();
+</script>
+<script>
+/* Delivering Premium Health Products – scroll reveal.
+   When the heading or a card enters the screen it plays a timed rise-in (.uni-in);
+   cards in the same row follow left to right. Scrolling back above the section resets
+   them, so the animation plays again next time. */
+(function () {
+  var section = document.querySelector('.uni-dosage-showcase');
+  if (!section || section.dataset.uniInit) return;
+  section.dataset.uniInit = '1';
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if (!('IntersectionObserver' in window)) return;
+
+  var parts = [].slice.call(section.querySelectorAll('.uni-dosage-reveal'));
+  section.classList.add('uni-js');
+
+  function setDelays() {
+    var vw = window.innerWidth || 1;
+    parts.forEach(function (el) {
+      // left-to-right stagger within a row (0 – 0.3s)
+      el.style.setProperty('--uni-d', ((el.offsetLeft / vw) * 0.45).toFixed(2) + 's');
+    });
+  }
+  setDelays();
+  window.addEventListener('resize', setDelays, { passive: true });
+
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (en) {
+      if (en.isIntersecting) en.target.classList.add('uni-in');
+      // only reset once it is below the screen again (scrolled back up)
+      else if (en.boundingClientRect.top > 0) en.target.classList.remove('uni-in');
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
+  parts.forEach(function (el) { io.observe(el); });
+})();
+</script>
 <script>
 /* Why choose Unipharm – scroll-driven frosted-glass New Zealand.
    Timeline (0 → 1, driven by scrolling):
@@ -1076,8 +1907,8 @@ html[lang^="zh"] #uni-why-choose .uni-zh { display: revert; }
         x: x, y: y,
         sx: map.cx + Math.cos(ang) * dist, sy: map.cy + Math.sin(ang) * dist * 0.85,
         delay: rand() * 0.12, r: 0.6 + rand() * 1.5,
-        color: kind < 0.6 ? '22,131,239' : kind < 0.85 ? '90,165,240' : '12,80,170',
-        light: kind < 0.7 ? '255,255,255' : '180,222,255',
+        color: kind < 0.6 ? '3,78,162' : kind < 0.85 ? '70,120,190' : '2,50,110',
+        light: kind < 0.7 ? '255,255,255' : '190,210,238',
         f1: 0.2 + rand() * 0.3, f2: 0.15 + rand() * 0.25, p1: rand() * 6.28, p2: rand() * 6.28
       });
     }
@@ -1132,8 +1963,8 @@ html[lang^="zh"] #uni-why-choose .uni-zh { display: revert; }
       var q = pt(P, to * i / n);
       if (i) ctx.lineTo(q[0], q[1]); else ctx.moveTo(q[0], q[1]);
     }
-    ctx.lineWidth = width; ctx.strokeStyle = '#1683ef'; ctx.globalAlpha = alpha;
-    ctx.shadowBlur = blur || 0; ctx.shadowColor = 'rgba(65,166,255,.6)';
+    ctx.lineWidth = width; ctx.strokeStyle = '#034ea2'; ctx.globalAlpha = alpha;
+    ctx.shadowBlur = blur || 0; ctx.shadowColor = 'rgba(60, 120, 200,.6)';
     ctx.stroke();
     ctx.shadowBlur = 0;
   }
@@ -1166,15 +1997,15 @@ html[lang^="zh"] #uni-why-choose .uni-zh { display: revert; }
       strokePart(P, e, done ? 1.3 : 1, done ? 0.5 : 0.35, done ? 6 : 0);
       if (!done) {
         var tip = pt(P, e);
-        dot(tip[0], tip[1], 7, '#8cc8ff', 0.35);
-        dot(tip[0], tip[1], 2.4, '#1683ef', 0.9);
+        dot(tip[0], tip[1], 7, '#8fb0dc', 0.35);
+        dot(tip[0], tip[1], 2.4, '#034ea2', 0.9);
       } else {
         var pulse = reduced ? 0 : Math.sin(time * 2.2 + k) * 0.5 + 0.5;
-        dot(l.ex, l.ey, 7 + pulse * 3, '#8cc8ff', 0.25);
-        dot(l.ex, l.ey, 3, '#1683ef', 0.9);
+        dot(l.ex, l.ey, 7 + pulse * 3, '#8fb0dc', 0.25);
+        dot(l.ex, l.ey, 3, '#034ea2', 0.9);
         if (!reduced) {
           var t = (time * 0.22 + l.seed) % 1, q = pt(P, t);
-          dot(q[0], q[1], 2, '#1683ef', 0.55 * Math.sin(Math.PI * t));
+          dot(q[0], q[1], 2, '#034ea2', 0.55 * Math.sin(Math.PI * t));
         }
       }
     });
@@ -1192,11 +2023,11 @@ html[lang^="zh"] #uni-why-choose .uni-zh { display: revert; }
 
       // body: deep blue, darker toward the edges, clearer through the middle
       var body = ctx.createLinearGradient(0, 0, map.w, map.h * 0.35);
-      body.addColorStop(0, 'rgba(8,62,140,.92)');
-      body.addColorStop(0.3, 'rgba(18,108,214,.80)');
-      body.addColorStop(0.55, 'rgba(38,140,236,.70)');
-      body.addColorStop(0.8, 'rgba(14,92,190,.84)');
-      body.addColorStop(1, 'rgba(6,52,122,.94)');
+      body.addColorStop(0, 'rgba(2,38,86,.92)');
+      body.addColorStop(0.3, 'rgba(3,78,162,.92)');
+      body.addColorStop(0.55, 'rgba(22,96,180,.86)');
+      body.addColorStop(0.8, 'rgba(3,64,136,.93)');
+      body.addColorStop(1, 'rgba(2,32,74,.94)');
       ctx.globalAlpha = a; ctx.fillStyle = body;
       ctx.fill(clip);
 
@@ -1205,8 +2036,8 @@ html[lang^="zh"] #uni-why-choose .uni-zh { display: revert; }
 
       // inner glow through the middle of the glass
       var inner = ctx.createRadialGradient(map.w * 0.55, map.h * 0.45, 0, map.w * 0.55, map.h * 0.45, map.h * 0.55);
-      inner.addColorStop(0, 'rgba(120,195,255,.38)');
-      inner.addColorStop(1, 'rgba(120,195,255,0)');
+      inner.addColorStop(0, 'rgba(125, 165, 220,.26)');
+      inner.addColorStop(1, 'rgba(125, 165, 220,0)');
       ctx.globalAlpha = a; ctx.fillStyle = inner; ctx.fillRect(0, 0, map.w, map.h);
 
       // fine frost
@@ -1252,7 +2083,7 @@ html[lang^="zh"] #uni-why-choose .uni-zh { display: revert; }
         if (p <= 0) return;
         var s = toWorld(l.anchor[0], l.anchor[1], bob, tilt);
         dot(s[0], s[1], 5, '#ffffff', 0.9);
-        dot(s[0], s[1], 2.6, '#1683ef', 0.85);
+        dot(s[0], s[1], 2.6, '#034ea2', 0.85);
       });
     }
 
